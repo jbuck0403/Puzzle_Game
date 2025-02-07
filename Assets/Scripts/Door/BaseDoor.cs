@@ -10,6 +10,9 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
     public bool IsLocked => isLocked;
     public bool IsClosed => isClosed;
 
+    public bool CanInteract { get; private set; } = true;
+    public float InteractRange { get; } = InteractDistance.Medium;
+
     [SerializeField]
     protected float openSpeed = 1f;
 

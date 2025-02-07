@@ -47,7 +47,16 @@ public class Interact : MonoBehaviour
             }
 
             if (interactable.CanInteract && hitInfo.distance <= interactable.InteractRange)
-                interactable.StartInteract(transform);
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    interactable.StartInteract(transform);
+                }
+                else if (Input.GetKeyUp(KeyCode.E))
+                {
+                    interactable.EndInteract();
+                }
+            }
         }
     }
 

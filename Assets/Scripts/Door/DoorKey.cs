@@ -1,28 +1,15 @@
 using UnityEngine;
 
-public class DoorKey : MonoBehaviour, IInteractable
+public class DoorKey : Collectible
 {
-    private bool collected = false;
-
-    public void KeyCollected()
+    protected override bool OnCollect(Transform interactor)
     {
-        collected = true;
-    }
-
-    public void StartInteract(Transform interactor)
-    {
-        if (!collected)
+        KeyHandler keyHandler = interactor.GetComponent<KeyHandler>();
+        if (keyHandler == null)
         {
-            KeyHandler keyHandler = interactor.GetComponent<KeyHandler>();
-            if (keyHandler == null)
-            {
-                return;
-            }
-            keyHandler.CollectKey();
-
-            KeyCollected();
+            return false;
         }
-    }
 
-    public void EndInteract() { }
+        return keyHandler.CollectKey();
+    }
 }

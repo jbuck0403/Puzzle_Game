@@ -10,10 +10,12 @@ public class WeaponCollectible : Collectible
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    protected override void OnCollect()
+    protected override bool OnCollect(Transform interactor)
     {
         playerInput = player.GetComponent<PlayerInput>();
 
         playerInput.EquipWeapon(this.transform);
+
+        return true;
     }
 }

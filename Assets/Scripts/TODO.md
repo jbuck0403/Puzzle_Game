@@ -1,0 +1,2 @@
+ - Make DoorKey inherit from Collectible
+ - Make 

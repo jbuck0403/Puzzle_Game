@@ -3,6 +3,8 @@ using UnityEngine;
 public abstract class Collectible : MonoBehaviour, IInteractable
 {
     protected bool isCollected = false;
+    public bool CanInteract { get; protected set; } = true;
+    public float InteractRange { get; } = InteractDistance.Short;
 
     public void SetCollected(bool value)
     {
@@ -14,16 +16,21 @@ public abstract class Collectible : MonoBehaviour, IInteractable
         return isCollected;
     }
 
-    public virtual void StartInteract()
+    public virtual bool StartInteract(Transform interactor)
     {
         if (!isCollected)
         {
-            OnCollect();
-            isCollected = true;
+            if (OnCollect(interactor))
+            {
+                isCollected = true;
+                CanInteract = false;
+            }
         }
+
+        return isCollected;
     }
 
     public virtual void EndInteract() { }
 
-    protected abstract void OnCollect();
+    protected abstract bool OnCollect(Transform interactor);
 }

@@ -4,9 +4,10 @@ public class KeyHandler : MonoBehaviour
 {
     public int CollectedKeys { private set; get; }
 
-    public void CollectKey()
+    public bool CollectKey()
     {
         CollectedKeys++;
+        return true;
     }
 
     public bool UseKey()
