@@ -32,6 +32,9 @@ public abstract class BasePuzzlePiece : MonoBehaviour
 
     protected void SetActivated(bool activated)
     {
+        if (puzzle != null && puzzle.IsCompleted)
+            return;
+
         if (isActivated != activated)
         {
             isActivated = activated;

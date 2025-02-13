@@ -11,47 +11,63 @@ public class SequencePuzzle : BasePuzzle
 
     protected override void OnPieceStateChanged()
     {
-        // Find the piece that just changed to activated
+        // find the piece that just changed to activated
         var activatedPiece = puzzlePieces.FirstOrDefault(p =>
             p.IsActivated && !currentSequence.Contains(p)
         );
 
         if (activatedPiece != null)
         {
-            // Check if this is the next piece in the sequence
+            // check if this is the next piece in the sequence
             int nextIndex = currentSequence.Count;
             if (nextIndex < requiredSequence.Count && activatedPiece == requiredSequence[nextIndex])
             {
-                // Correct next piece
+                // correct next piece
                 currentSequence.Add(activatedPiece);
             }
             else
             {
-                // Wrong piece - reset sequence
+                // wrong piece - reset sequence
                 ResetSequence();
                 return;
             }
         }
 
-        // Check if puzzle is solved
+        // check if puzzle is solved
         base.OnPieceStateChanged();
     }
 
     protected override bool IsPuzzleConditionMet()
     {
-        // Puzzle is solved when the current sequence matches the required sequence
-        return currentSequence.Count == requiredSequence.Count;
+        // puzzle is solved when the current sequence matches the required sequence
+        bool conditionMet = currentSequence.Count == requiredSequence.Count;
+
+        if (!isCompleted && conditionMet)
+        {
+            ResetSequence(true);
+        }
+
+        return conditionMet;
     }
 
-    private void ResetSequence()
+    private void ResetSequence(bool disable = false)
     {
         currentSequence.Clear();
-        // Deactivate all pieces
+        // deactivate all pieces
         foreach (var piece in puzzlePieces)
         {
-            if (piece is BasePressurePlate pressurePlate)
+            if (piece is BaseButton button)
             {
-                pressurePlate.ForceDeactivate();
+                if (disable)
+                {
+                    print($"disabling {piece.name}");
+                    button.DisableButton();
+                }
+                else
+                {
+                    print($"force deactivating {piece.name}");
+                    button.ForceDeactivate();
+                }
             }
         }
     }

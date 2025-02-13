@@ -17,6 +17,8 @@ public class BaseButton : BasePuzzlePiece, IInteractable
     public bool CanInteract { protected set; get; } = true;
     public float InteractRange { protected set; get; } = InteractDistance.Short;
 
+    public bool disabled = false;
+
     protected override void Start()
     {
         base.Start();
@@ -38,35 +40,44 @@ public class BaseButton : BasePuzzlePiece, IInteractable
 
     public virtual bool StartInteract(Transform interactor)
     {
-        // SetActivated(true);
-        ActivateButton();
+        if (!disabled)
+        {
+            ActivateButton();
 
-        return IsActivated;
+            return IsActivated;
+        }
+
+        return false;
     }
 
     public virtual void EndInteract()
     {
-        // SetActivated(false);
         DeactivateButton();
     }
 
     protected void ActivateButton()
     {
-        SetActivated(true);
-
-        if (meshRenderer != null && pressedMaterial != null)
+        if (!disabled)
         {
-            meshRenderer.material = pressedMaterial;
+            SetActivated(true);
+
+            if (meshRenderer != null && pressedMaterial != null)
+            {
+                meshRenderer.material = pressedMaterial;
+            }
         }
     }
 
     protected void DeactivateButton()
     {
-        SetActivated(false);
-
-        if (meshRenderer != null && defaultMaterial != null)
+        if (!disabled)
         {
-            meshRenderer.material = defaultMaterial;
+            SetActivated(false);
+
+            if (meshRenderer != null && defaultMaterial != null)
+            {
+                meshRenderer.material = defaultMaterial;
+            }
         }
     }
 
@@ -78,7 +89,7 @@ public class BaseButton : BasePuzzlePiece, IInteractable
 
     private void OnValidate()
     {
-        // Ensure BoxCollider is set up correctly
+        // ensure BoxCollider is set up correctly
         if (interactZone == null)
         {
             interactZone = GetComponent<BoxCollider>();
@@ -92,5 +103,12 @@ public class BaseButton : BasePuzzlePiece, IInteractable
     protected virtual void OnDisable()
     {
         EndInteract();
+    }
+
+    public virtual void DisableButton()
+    {
+        OnDisable();
+        ForceDeactivate();
+        disabled = true;
     }
 }

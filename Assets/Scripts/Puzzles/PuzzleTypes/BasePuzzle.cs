@@ -13,6 +13,8 @@ public abstract class BasePuzzle : MonoBehaviour
 
     protected bool isCompleted = false;
 
+    public bool IsCompleted => isCompleted;
+
     public virtual void AddPuzzlePiece(BasePuzzlePiece piece)
     {
         if (!puzzlePieces.Contains(piece))
@@ -43,6 +45,7 @@ public abstract class BasePuzzle : MonoBehaviour
     {
         if (IsPuzzleConditionMet() && !isCompleted)
         {
+            print("Puzzle Completed!");
             isCompleted = true;
             OnPuzzleCompleted?.Invoke();
         }

@@ -40,4 +40,10 @@ public class TimerTarget : BaseTarget
         CleanUpCoroutine(disableAfterTimeCoroutine);
         base.OnDisable();
     }
+
+    public override void ForceDeactivate()
+    {
+        CleanUpCoroutine(disableAfterTimeCoroutine);
+        base.ForceDeactivate();
+    }
 }
