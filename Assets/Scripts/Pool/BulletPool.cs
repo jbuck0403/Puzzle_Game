@@ -54,4 +54,20 @@ public class BulletPool : PoolBase
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
     }
+
+    protected override GameObject AddObjectToPool()
+    {
+        GameObject obj = base.AddObjectToPool();
+
+        if (obj != null)
+        {
+            Projectile projectile = obj.GetComponent<Projectile>();
+            if (projectile != null)
+            {
+                projectile.Initialize(this);
+            }
+        }
+
+        return obj;
+    }
 }

@@ -7,7 +7,7 @@ public interface IInteractable
     bool CanInteract { get; }
     float InteractRange { get; }
 
-    public void StartInteract(Transform interactor) { }
+    public bool StartInteract(Transform interactor);
 
-    public void EndInteract() { }
+    public void EndInteract();
 }

@@ -7,7 +7,7 @@ public class Interact : MonoBehaviour
     private Ray interactRay;
     private Camera mainCamera;
     private float interactRange = 50f;
-    float sphereRadius = 0.5f;
+    private float sphereRadius = 0.5f;
 
     [SerializeField]
     private LayerMask interactableLayerMask;
@@ -38,7 +38,7 @@ public class Interact : MonoBehaviour
             IInteractable interactable = hitInfo.collider.GetComponent<IInteractable>();
             if (interactable == null)
             {
-                // Try to find it in parent
+                // try to find it in parent
                 interactable = hitInfo.collider.GetComponentInParent<IInteractable>();
                 if (interactable == null)
                 {
@@ -50,6 +50,7 @@ public class Interact : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    print("pressed e");
                     interactable.StartInteract(transform);
                 }
                 else if (Input.GetKeyUp(KeyCode.E))

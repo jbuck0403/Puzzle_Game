@@ -8,6 +8,8 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     float selfDestructTime = 0f;
 
+    private PoolBase pool;
+
     void Start()
     {
         if (selfDestructTime != 0f)
@@ -18,6 +20,23 @@ public class Projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(selfDestructTime);
 
-        Destroy(gameObject);
+        DestroyProjectile();
+    }
+
+    public void Initialize(PoolBase bulletPool)
+    {
+        pool = bulletPool;
+    }
+
+    public void DestroyProjectile()
+    {
+        if (pool != null)
+        {
+            pool.ReturnToPool(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

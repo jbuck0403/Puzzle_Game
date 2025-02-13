@@ -79,11 +79,13 @@ public abstract class PoolBase : MonoBehaviour
         initialized = true;
     }
 
-    private void AddObjectToPool()
+    protected virtual GameObject AddObjectToPool()
     {
         GameObject obj = InstantiatePrefab();
         obj.SetActive(false);
         pool.Enqueue(obj);
+
+        return obj;
     }
 
     private GameObject InstantiatePrefab(GameObject prefabOverride = null)

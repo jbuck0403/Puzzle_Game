@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TogglePressurePlate : BasePressurePlate
 {
-    public override void StartInteract(Transform interactor)
+    public override bool StartInteract(Transform interactor)
     {
         SetActivated(!IsActivated); // toggles state
 
@@ -10,6 +10,8 @@ public class TogglePressurePlate : BasePressurePlate
             ActivateButton();
         else
             DeactivateButton();
+
+        return isActivated;
     }
 
     public override void EndInteract()

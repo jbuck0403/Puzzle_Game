@@ -9,7 +9,7 @@ public class BasePressurePlate : BaseButton
     {
         base.Start();
 
-        CanInteract = false;
+        CanInteract = false; // disallow IInteractable behavior
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,7 +23,7 @@ public class BasePressurePlate : BaseButton
 
         standingOnPlate.Add(other);
 
-        StartInteract(default);
+        StartInteract(other.transform);
     }
 
     protected virtual void OnTriggerExit(Collider other)

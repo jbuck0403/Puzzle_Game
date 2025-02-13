@@ -36,20 +36,24 @@ public class BaseButton : BasePuzzlePiece, IInteractable
         }
     }
 
-    public virtual void StartInteract(Transform interactor)
+    public virtual bool StartInteract(Transform interactor)
     {
-        SetActivated(true);
+        // SetActivated(true);
         ActivateButton();
+
+        return IsActivated;
     }
 
     public virtual void EndInteract()
     {
-        SetActivated(false);
+        // SetActivated(false);
         DeactivateButton();
     }
 
     protected void ActivateButton()
     {
+        SetActivated(true);
+
         if (meshRenderer != null && pressedMaterial != null)
         {
             meshRenderer.material = pressedMaterial;
@@ -58,6 +62,8 @@ public class BaseButton : BasePuzzlePiece, IInteractable
 
     protected void DeactivateButton()
     {
+        SetActivated(false);
+
         if (meshRenderer != null && defaultMaterial != null)
         {
             meshRenderer.material = defaultMaterial;

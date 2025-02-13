@@ -46,7 +46,7 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
         }
     }
 
-    public void StartInteract(Transform interactor)
+    public bool StartInteract(Transform interactor)
     {
         KeyHandler keyHandler = interactor.GetComponent<KeyHandler>();
         UnlockDoor(keyHandler.UseKey());
@@ -64,6 +64,8 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
                 isClosed = true;
             }
         }
+
+        return beingOpened || beingClosed;
     }
 
     public void EndInteract() { }

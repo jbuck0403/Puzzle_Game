@@ -6,6 +6,7 @@ public class KeyHandler : MonoBehaviour
 
     public bool CollectKey()
     {
+        print("Key Collected");
         CollectedKeys++;
         return true;
     }
@@ -14,6 +15,7 @@ public class KeyHandler : MonoBehaviour
     {
         if (CollectedKeys > 0)
         {
+            print("Key Used");
             CollectedKeys--;
             return true;
         }
