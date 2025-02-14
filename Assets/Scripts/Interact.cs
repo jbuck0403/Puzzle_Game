@@ -25,6 +25,13 @@ public class Interact : MonoBehaviour
 
         Debug.DrawRay(interactRay.origin, interactRay.direction * 100f, Color.yellow);
 
+        // Debug the layer mask
+        if (Input.GetKeyDown(KeyCode.L)) // Add temporary debug key
+        {
+            Debug.Log($"Interactable Layer Mask: {interactableLayerMask.value}");
+            Debug.Log($"Looking for layers: {LayerMaskToString(interactableLayerMask)}");
+        }
+
         if (
             Physics.SphereCast(
                 interactRay,
@@ -35,6 +42,10 @@ public class Interact : MonoBehaviour
             )
         )
         {
+            Debug.Log(
+                $"Hit object: {hitInfo.collider.gameObject.name} on layer {hitInfo.collider.gameObject.layer}"
+            );
+
             IInteractable interactable = hitInfo.collider.GetComponent<IInteractable>();
             if (interactable == null)
             {
@@ -42,15 +53,17 @@ public class Interact : MonoBehaviour
                 interactable = hitInfo.collider.GetComponentInParent<IInteractable>();
                 if (interactable == null)
                 {
+                    Debug.Log($"No IInteractable found on {hitInfo.collider.gameObject.name}");
                     return;
                 }
             }
 
             if (interactable.CanInteract && hitInfo.distance <= interactable.InteractRange)
             {
+                print("HOVERING INTERACTABLE");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    print("pressed e");
+                    print($"Attempting to interact with {hitInfo.collider.gameObject.name}");
                     interactable.StartInteract(transform);
                 }
                 else if (Input.GetKeyUp(KeyCode.E))
@@ -58,7 +71,26 @@ public class Interact : MonoBehaviour
                     interactable.EndInteract();
                 }
             }
+            else
+            {
+                Debug.Log(
+                    $"Not interactable: CanInteract={interactable.CanInteract}, distance={hitInfo.distance}, InteractRange={interactable.InteractRange}"
+                );
+            }
         }
+    }
+
+    private string LayerMaskToString(LayerMask mask)
+    {
+        var layers = new System.Text.StringBuilder();
+        for (int i = 0; i < 32; i++)
+        {
+            if ((mask & (1 << i)) != 0)
+            {
+                layers.Append(LayerMask.LayerToName(i)).Append(", ");
+            }
+        }
+        return layers.ToString().TrimEnd(',', ' ');
     }
 
     private void Update()

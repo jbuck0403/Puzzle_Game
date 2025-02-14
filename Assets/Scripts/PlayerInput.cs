@@ -32,16 +32,17 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField]
     public Transform currentWeapon;
+    public bool isHolding = true;
 
     void Awake()
     {
         characterController = GetComponent<CharacterController>();
     }
 
-    void Start()
-    {
-        currentWeapon.GetComponent<Collectible>().SetCollected(true);
-    }
+    // void Start()
+    // {
+    //     currentWeapon.GetComponent<Weapon>().SetCollected(true);
+    // }
 
     void Update()
     {
@@ -50,10 +51,10 @@ public class PlayerInput : MonoBehaviour
             CameraFollowMouse();
         }
 
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            DropWeapon();
-        }
+        // if (Input.GetKeyDown(KeyCode.G))
+        // {
+        //     DropWeapon();
+        // }
 
         TriggerJump();
     }
@@ -72,40 +73,40 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
-    void DropWeapon()
-    {
-        if (currentWeapon != null)
-        {
-            Rigidbody weaponRb = currentWeapon.GetComponent<Rigidbody>();
-            Collectible collectible = currentWeapon.GetComponent<Collectible>();
+    // void DropWeapon()
+    // {
+    //     if (currentWeapon != null)
+    //     {
+    //         Rigidbody weaponRb = currentWeapon.GetComponent<Rigidbody>();
+    //         Collectible collectible = currentWeapon.GetComponent<Collectible>();
 
-            if (weaponRb == null || collectible == null)
-                return;
+    //         if (weaponRb == null || collectible == null)
+    //             return;
 
-            currentWeapon.SetParent(null);
-            weaponRb.isKinematic = false;
-            collectible.SetCollected(false);
-        }
-    }
+    //         currentWeapon.SetParent(null);
+    //         weaponRb.isKinematic = false;
+    //         collectible.SetCollected(false);
+    //     }
+    // }
 
-    public void EquipWeapon(Transform weapon)
-    {
-        if (weapon == null)
-            return;
+    // public void EquipWeapon(Transform weapon)
+    // {
+    //     if (weapon == null)
+    //         return;
 
-        DropWeapon();
+    //     DropWeapon();
 
-        Rigidbody weaponRb = weapon.GetComponent<Rigidbody>();
-        Collectible collectible = weapon.GetComponent<Collectible>();
+    //     Rigidbody weaponRb = weapon.GetComponent<Rigidbody>();
+    //     Collectible collectible = weapon.GetComponent<Collectible>();
 
-        weapon.SetParent(mainHand);
-        weapon.localPosition = Vector3.zero;
-        weapon.localRotation = Quaternion.identity;
-        weaponRb.isKinematic = true;
-        collectible.SetCollected(true);
+    //     weapon.SetParent(mainHand);
+    //     weapon.localPosition = Vector3.zero;
+    //     weapon.localRotation = Quaternion.identity;
+    //     weaponRb.isKinematic = true;
+    //     collectible.SetCollected(true);
 
-        currentWeapon = weapon;
-    }
+    //     currentWeapon = weapon;
+    // }
 
     void CameraFollowMouse()
     {

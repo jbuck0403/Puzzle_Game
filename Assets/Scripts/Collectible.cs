@@ -4,7 +4,7 @@ public abstract class Collectible : MonoBehaviour, IInteractable
 {
     protected bool isCollected = false;
     public bool CanInteract { get; protected set; } = true;
-    public float InteractRange { get; } = InteractDistance.Short;
+    public virtual float InteractRange { get; } = InteractDistance.Short;
 
     public void SetCollected(bool value)
     {

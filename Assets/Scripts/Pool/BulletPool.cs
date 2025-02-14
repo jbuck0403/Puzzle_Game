@@ -2,22 +2,8 @@ using UnityEngine;
 
 public class BulletPool : PoolBase
 {
-    PlayerInput player;
-    Transform weaponTip;
-
     [SerializeField]
     int poolCount;
-
-    protected override void Start()
-    {
-        base.Start();
-
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-        player = playerObj.GetComponent<PlayerInput>();
-
-        FireProjectile fireProjectile = player.currentWeapon.GetComponent<FireProjectile>();
-        weaponTip = fireProjectile.weaponTip;
-    }
 
     void Update()
     {
@@ -40,19 +26,21 @@ public class BulletPool : PoolBase
         }
     }
 
-    protected override void OnObjectSpawned(GameObject obj)
+    private void RepositionBulletForFiring(GameObject obj, Transform weaponTip)
     {
-        RepositionBulletForFiring(obj);
-    }
-
-    private void RepositionBulletForFiring(GameObject obj)
-    {
-        obj.transform.position = weaponTip.position;
-        obj.transform.rotation = weaponTip.rotation;
+        obj.transform.SetPositionAndRotation(weaponTip.position, weaponTip.rotation);
 
         Rigidbody rb = obj.GetComponent<Rigidbody>();
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+    }
+
+    public GameObject GetBullet(Transform weaponTip)
+    {
+        GameObject bullet = GetObject();
+        RepositionBulletForFiring(bullet, weaponTip);
+
+        return bullet;
     }
 
     protected override GameObject AddObjectToPool()

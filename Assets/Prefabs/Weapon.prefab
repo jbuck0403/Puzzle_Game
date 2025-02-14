@@ -219,7 +219,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8699285660481706593}
-  - component: {fileID: 3296906376289241585}
   - component: {fileID: -2824539291712914312}
   - component: {fileID: 85915352912312371}
   - component: {fileID: 1100389343696153320}
@@ -248,21 +247,6 @@ Transform:
   - {fileID: 7534970917592273531}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!114 &3296906376289241585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3496416106310150139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd529f3947b1fee49ba4f26358f474a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponTip: {fileID: 7534970917592273531}
-  bullet: {fileID: 1207941026062301837, guid: ca5476de45331324b8ef859765cdf1de, type: 3}
-  bulletSpeed: 50
 --- !u!54 &-2824539291712914312
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -302,6 +286,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9096606da97f5ce4f9db1eede3baf7a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdOffset: {x: 0, y: 0, z: 0}
+  holdRotation: {x: 0, y: 0, z: 0}
+  pickupRange: 15
+  weaponTip: {fileID: 7534970917592273531}
+  bullet: {fileID: 1207941026062301837, guid: ca5476de45331324b8ef859765cdf1de, type: 3}
+  bulletSpeed: 50
 --- !u!65 &1100389343696153320
 BoxCollider:
   m_ObjectHideFlags: 0
