@@ -9,10 +9,10 @@ public class BaseButton : BasePuzzlePiece, IInteractable
 
     [SerializeField]
     private MeshRenderer meshRenderer;
-    private Material defaultMaterial;
 
     [SerializeField]
     private Material pressedMaterial;
+    private Material defaultMaterial;
 
     public bool CanInteract { protected set; get; } = true;
     public float InteractRange { protected set; get; } = InteractDistance.Short;

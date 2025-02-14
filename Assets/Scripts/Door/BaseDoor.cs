@@ -4,6 +4,9 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
 {
     [SerializeField]
     protected bool isLocked = true;
+
+    [SerializeField]
+    private bool openOnStart = false;
     private bool isClosed = true;
     protected bool beingOpened = false;
     protected bool beingClosed = false;
@@ -32,6 +35,12 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
     protected virtual void Start()
     {
         doorStartPos = door.localPosition;
+
+        if (openOnStart)
+        {
+            beingOpened = true;
+            isClosed = false;
+        }
     }
 
     void Update()

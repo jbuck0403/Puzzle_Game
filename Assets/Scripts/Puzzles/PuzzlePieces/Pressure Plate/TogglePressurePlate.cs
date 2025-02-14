@@ -4,12 +4,15 @@ public class TogglePressurePlate : BasePressurePlate
 {
     public override bool StartInteract(Transform interactor)
     {
-        SetActivated(!IsActivated); // toggles state
+        if (numStandingBefore == 0)
+        {
+            SetActivated(!IsActivated); // toggles state
 
-        if (isActivated)
-            ActivateButton();
-        else
-            DeactivateButton();
+            if (isActivated)
+                ActivateButton();
+            else
+                DeactivateButton();
+        }
 
         return isActivated;
     }

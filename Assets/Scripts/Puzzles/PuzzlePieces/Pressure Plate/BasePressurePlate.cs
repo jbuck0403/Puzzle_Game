@@ -4,6 +4,7 @@ using UnityEngine;
 public class BasePressurePlate : BaseButton
 {
     protected HashSet<Collider> standingOnPlate = new HashSet<Collider>();
+    protected int numStandingBefore;
 
     protected override void Start()
     {
@@ -21,6 +22,7 @@ public class BasePressurePlate : BaseButton
         if ((interactibleLayer.value & (1 << other.gameObject.layer)) == 0)
             return;
 
+        numStandingBefore = standingOnPlate.Count;
         standingOnPlate.Add(other);
 
         StartInteract(other.transform);
