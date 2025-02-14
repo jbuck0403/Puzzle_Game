@@ -17,7 +17,6 @@ public class Pickupable : Collectible
     private Collider col;
     private Transform mainHand;
 
-    // Override the InteractRange property
     public override float InteractRange => pickupRange;
 
     protected virtual void Start()
@@ -25,7 +24,6 @@ public class Pickupable : Collectible
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
 
-        // Add debug logging
         Debug.Log($"Pickupable {gameObject.name} initialized with range {pickupRange}");
         Debug.Log($"Layer: {gameObject.layer}, Collider enabled: {col.enabled}");
     }
@@ -44,7 +42,6 @@ public class Pickupable : Collectible
         if (playerInput == null)
             return false;
 
-        // Get mainHand reference first
         mainHand = playerInput.mainHand;
         if (mainHand == null)
         {
@@ -52,7 +49,7 @@ public class Pickupable : Collectible
             return false;
         }
 
-        // Drop anything currently in mainHand
+        // drop anything currently in mainHand
         if (mainHand.childCount > 0)
         {
             Pickupable currentItem = mainHand.GetComponentInChildren<Pickupable>();
@@ -62,14 +59,14 @@ public class Pickupable : Collectible
             }
         }
 
-        // Pick up the object
+        // pick up the object
         isCollected = true;
         rb.isKinematic = true;
-        col.enabled = true; // Keep collider enabled for weapon functionality
+        col.enabled = true; // keep collider enabled for weapon functionality
 
         playerInput.isHolding = true;
 
-        // Parent to hold point and set position/rotation
+        // parent to hold point and set position/rotation
         transform.parent = mainHand;
         transform.localPosition = holdOffset;
         transform.localRotation = Quaternion.Euler(holdRotation);
@@ -81,7 +78,6 @@ public class Pickupable : Collectible
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            print("dropping");
             HandleDrop();
         }
     }
@@ -91,32 +87,28 @@ public class Pickupable : Collectible
         if (!isCollected)
             return;
 
-        // Find and update PlayerInput
         PlayerInput playerInput = mainHand.GetComponentInParent<PlayerInput>();
         if (playerInput != null)
         {
-            playerInput.currentWeapon = null;
+            playerInput.currentWeapon = null; // likely will need to be removed when playerinput script is revisited
             playerInput.isHolding = false;
         }
 
-        // Drop the object
+        // drop the object
         isCollected = false;
         rb.isKinematic = false;
-
-        // Unparent from hold point
         transform.parent = null;
 
-        // Add slight forward force when dropping
+        // throw the weapon
         rb.velocity = mainHand.right * 5f;
 
-        // Reset collectible state to allow pickup again
+        // reset collectible state to allow pickup again
         SetCollected(false);
         CanInteract = true;
     }
 
     private void OnValidate()
     {
-        // Ensure we have required components
         if (GetComponent<Rigidbody>() == null)
             gameObject.AddComponent<Rigidbody>();
 

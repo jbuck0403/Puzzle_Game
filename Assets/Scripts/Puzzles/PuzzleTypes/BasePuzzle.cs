@@ -15,6 +15,11 @@ public abstract class BasePuzzle : MonoBehaviour
 
     public bool IsCompleted => isCompleted;
 
+    private void Awake()
+    {
+        OnPuzzleCompleted += () => ResetPuzzle(true);
+    }
+
     public virtual void AddPuzzlePiece(BasePuzzlePiece piece)
     {
         if (!puzzlePieces.Contains(piece))
@@ -48,6 +53,32 @@ public abstract class BasePuzzle : MonoBehaviour
             print("Puzzle Completed!");
             isCompleted = true;
             OnPuzzleCompleted?.Invoke();
+        }
+    }
+
+    public virtual void ResetPuzzle(bool disable = false)
+    {
+        print($"RESETTING PUZZLE (disable: {disable})");
+        ResetButtons(disable);
+    }
+
+    private void ResetButtons(bool disable = false)
+    {
+        foreach (var piece in puzzlePieces)
+        {
+            if (piece is BaseButton button)
+            {
+                if (disable)
+                {
+                    print($"disabling {piece.name}");
+                    button.DisableButton();
+                }
+                else
+                {
+                    print($"force deactivating {piece.name}");
+                    button.ForceDeactivate();
+                }
+            }
         }
     }
 

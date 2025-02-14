@@ -84,7 +84,6 @@ public class BaseButton : BasePuzzlePiece, IInteractable
     public virtual void ForceDeactivate()
     {
         DeactivateButton();
-        EndInteract();
     }
 
     private void OnValidate()
@@ -107,8 +106,8 @@ public class BaseButton : BasePuzzlePiece, IInteractable
 
     public virtual void DisableButton()
     {
-        OnDisable();
         ForceDeactivate();
+        OnDisable(); // test - might remove
         disabled = true;
     }
 }

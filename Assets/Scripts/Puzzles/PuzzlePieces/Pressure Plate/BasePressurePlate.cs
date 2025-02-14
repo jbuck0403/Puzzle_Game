@@ -52,9 +52,9 @@ public class BasePressurePlate : BaseButton
         base.ForceDeactivate();
     }
 
-    protected override void OnDisable()
-    {
-        standingOnPlate.Clear();
-        base.OnDisable();
-    }
+    // protected override void OnDisable()
+    // {
+    //     standingOnPlate.Clear();
+    //     base.OnDisable();
+    // }
 }

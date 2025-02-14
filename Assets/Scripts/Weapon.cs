@@ -12,14 +12,6 @@ public class Weapon : Pickupable
     private float bulletSpeed = 50f;
     BulletPool bulletPool;
 
-    private GameObject SpawnBullet()
-    {
-        // GameObject firedBullet = Instantiate(bullet, weaponTip.position, weaponTip.rotation);
-        GameObject firedBullet = bulletPool.GetBullet(weaponTip);
-
-        return firedBullet;
-    }
-
     protected override void Start()
     {
         base.Start();
@@ -37,6 +29,11 @@ public class Weapon : Pickupable
             print("firing");
             ShootBullet();
         }
+    }
+
+    private GameObject SpawnBullet()
+    {
+        return bulletPool.GetBullet(weaponTip);
     }
 
     void ShootBullet()

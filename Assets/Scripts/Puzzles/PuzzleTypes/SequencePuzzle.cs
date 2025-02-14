@@ -28,7 +28,7 @@ public class SequencePuzzle : BasePuzzle
             else
             {
                 // wrong piece - reset sequence
-                ResetSequence();
+                ResetPuzzle();
                 return;
             }
         }
@@ -44,31 +44,31 @@ public class SequencePuzzle : BasePuzzle
 
         if (!isCompleted && conditionMet)
         {
-            ResetSequence(true);
+            ResetPuzzle(true);
         }
 
         return conditionMet;
     }
 
-    private void ResetSequence(bool disable = false)
-    {
-        currentSequence.Clear();
-        // deactivate all pieces
-        foreach (var piece in puzzlePieces)
-        {
-            if (piece is BaseButton button)
-            {
-                if (disable)
-                {
-                    print($"disabling {piece.name}");
-                    button.DisableButton();
-                }
-                else
-                {
-                    print($"force deactivating {piece.name}");
-                    button.ForceDeactivate();
-                }
-            }
-        }
-    }
+    // private void ResetSequence(bool disable = false)
+    // {
+    //     currentSequence.Clear();
+    //     // deactivate all pieces
+    //     foreach (var piece in puzzlePieces)
+    //     {
+    //         if (piece is BaseButton button)
+    //         {
+    //             if (disable)
+    //             {
+    //                 print($"disabling {piece.name}");
+    //                 button.DisableButton();
+    //             }
+    //             else
+    //             {
+    //                 print($"force deactivating {piece.name}");
+    //                 button.ForceDeactivate();
+    //             }
+    //         }
+    //     }
+    // }
 }
