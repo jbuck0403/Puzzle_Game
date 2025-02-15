@@ -10,7 +10,13 @@ public abstract class BasePuzzlePiece : MonoBehaviour
     public event Action OnStateChanged;
 
     [SerializeField]
+    protected PuzzleEvent onStateChangedEvent;
+
+    [SerializeField]
     protected bool isActivated = false;
+
+    [SerializeField]
+    protected bool standalonePlate = false;
 
     public bool IsActivated => isActivated;
 
@@ -32,13 +38,30 @@ public abstract class BasePuzzlePiece : MonoBehaviour
 
     protected void SetActivated(bool activated)
     {
+        // if in a puzzle, only block if puzzle is completed
         if (puzzle != null && puzzle.IsCompleted)
             return;
+
+        // if not in a puzzle, require standalone and event
+        if (puzzle == null && (!standalonePlate || onStateChangedEvent == null))
+        {
+            Debug.LogError(
+                $"No Puzzle found && standalonePlate == {standalonePlate} || Event {(onStateChangedEvent != null ? "Present" : "Missing")}"
+            );
+            return;
+        }
 
         if (isActivated != activated)
         {
             isActivated = activated;
-            OnStateChanged?.Invoke();
+            if (onStateChangedEvent != null)
+            {
+                onStateChangedEvent.RaiseEvent();
+            }
+            else
+            {
+                OnStateChanged?.Invoke();
+            }
         }
     }
 }
