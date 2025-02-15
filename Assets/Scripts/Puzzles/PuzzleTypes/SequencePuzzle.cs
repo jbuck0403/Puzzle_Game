@@ -42,11 +42,6 @@ public class SequencePuzzle : BasePuzzle
         // puzzle is solved when the current sequence matches the required sequence
         bool conditionMet = currentSequence.Count == requiredSequence.Count;
 
-        if (!isCompleted && conditionMet)
-        {
-            ResetPuzzle(true);
-        }
-
         return conditionMet;
     }
 

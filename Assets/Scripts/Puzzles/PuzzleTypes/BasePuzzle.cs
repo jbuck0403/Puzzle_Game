@@ -5,9 +5,12 @@ using UnityEngine;
 public abstract class BasePuzzle : MonoBehaviour
 {
     // subscribe to this event to trigger what happens when the puzzle is solved
-    public event Action OnPuzzleCompleted;
+    // public event Action OnPuzzleCompleted;
 
     public event Action OnPuzzleStateChanged;
+
+    [SerializeField]
+    protected PuzzleEvent OnPuzzleCompleted;
 
     protected List<BasePuzzlePiece> puzzlePieces = new List<BasePuzzlePiece>();
 
@@ -17,7 +20,10 @@ public abstract class BasePuzzle : MonoBehaviour
 
     private void Awake()
     {
-        OnPuzzleCompleted += () => ResetPuzzle(true);
+        if (OnPuzzleCompleted != null)
+        {
+            OnPuzzleCompleted.Subscribe(() => ResetPuzzle(true));
+        }
     }
 
     public virtual void AddPuzzlePiece(BasePuzzlePiece piece)
@@ -52,7 +58,10 @@ public abstract class BasePuzzle : MonoBehaviour
         {
             print("Puzzle Completed!");
             isCompleted = true;
-            OnPuzzleCompleted?.Invoke();
+            if (OnPuzzleCompleted != null)
+            {
+                OnPuzzleCompleted.RaiseEvent();
+            }
         }
     }
 

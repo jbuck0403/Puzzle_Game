@@ -7,13 +7,20 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
 
     [SerializeField]
     private bool openOnStart = false;
+
+    [SerializeField]
+    private bool interactable = true;
+
+    [SerializeField]
+    private PuzzleEvent onPuzzleComplete;
+
     private bool isClosed = true;
     protected bool beingOpened = false;
     protected bool beingClosed = false;
     public bool IsLocked => isLocked;
     public bool IsClosed => isClosed;
 
-    public bool CanInteract { get; private set; } = true;
+    public bool CanInteract { get; protected set; }
     public float InteractRange { get; } = InteractDistance.Medium;
 
     [SerializeField]
@@ -31,6 +38,19 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
     protected Transform doorTarget;
 
     protected Vector3 doorStartPos;
+
+    protected virtual void Awake()
+    {
+        CanInteract = interactable;
+    }
+
+    protected virtual void OnEnable()
+    {
+        if (onPuzzleComplete != null)
+        {
+            onPuzzleComplete.Subscribe(OnPuzzleCompleted);
+        }
+    }
 
     protected virtual void Start()
     {
@@ -55,10 +75,24 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
         }
     }
 
+    protected virtual void OnDisable()
+    {
+        if (onPuzzleComplete != null)
+        {
+            onPuzzleComplete.Unsubscribe(OnPuzzleCompleted);
+        }
+    }
+
     public bool StartInteract(Transform interactor)
     {
-        KeyHandler keyHandler = interactor.GetComponent<KeyHandler>();
-        UnlockDoor(keyHandler.UseKey());
+        if (interactor != null)
+        {
+            KeyHandler keyHandler = interactor.GetComponent<KeyHandler>();
+            if (keyHandler != null)
+            {
+                UnlockDoor(keyHandler.UseKey());
+            }
+        }
 
         if (!IsLocked && !beingOpened && !beingClosed)
         {
@@ -107,6 +141,23 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
         {
             isLocked = true;
         }
+    }
+
+    public void ForceOpenDoor()
+    {
+        UnlockDoor(true);
+        StartInteract(default);
+        // if (IsClosed && !beingOpened)
+        // {
+        //     beingOpened = true;
+        //     isClosed = false;
+        // }
+    }
+
+    private void OnPuzzleCompleted()
+    {
+        UnlockDoor(true);
+        ForceOpenDoor();
     }
 
     public abstract void OpenDoor();
