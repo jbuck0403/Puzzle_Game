@@ -54,7 +54,7 @@ public abstract class BasePuzzlePiece : MonoBehaviour
         if (isActivated != activated)
         {
             isActivated = activated;
-            if (onStateChangedEvent != null)
+            if (onStateChangedEvent != null && !standalonePlate)
             {
                 onStateChangedEvent.RaiseEvent();
             }
