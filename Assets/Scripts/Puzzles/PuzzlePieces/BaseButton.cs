@@ -14,9 +14,6 @@ public class BaseButton : BasePuzzlePiece, IInteractable
     private Material pressedMaterial;
     private Material defaultMaterial;
 
-    [SerializeField]
-    private DoorEvent doorEvent;
-
     public bool CanInteract { protected set; get; } = true;
     public float InteractRange { protected set; get; } = InteractDistance.Short;
 
@@ -60,13 +57,10 @@ public class BaseButton : BasePuzzlePiece, IInteractable
 
     protected void ActivateButton()
     {
+        print("ACTIVATING BUTTON");
         if (!disabled)
         {
             SetActivated(true);
-            if (doorEvent != null)
-            {
-                doorEvent.RaiseOpenEvent();
-            }
 
             if (meshRenderer != null && pressedMaterial != null)
             {
@@ -77,13 +71,10 @@ public class BaseButton : BasePuzzlePiece, IInteractable
 
     protected void DeactivateButton()
     {
+        print("DEACTIVATING BUTTON");
         if (!disabled)
         {
             SetActivated(false);
-            if (doorEvent != null)
-            {
-                doorEvent.RaiseCloseEvent();
-            }
 
             if (meshRenderer != null && defaultMaterial != null)
             {

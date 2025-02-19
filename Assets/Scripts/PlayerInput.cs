@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     [SerializeField]
-    private Camera camera;
+    private Camera playerCamera;
 
     [SerializeField]
     private Transform head;
@@ -142,8 +142,8 @@ public class PlayerInput : MonoBehaviour
     void HandleMovement()
     {
         // Get camera's forward and right directions and flatten them
-        Vector3 cameraForward = camera.transform.forward;
-        Vector3 cameraRight = camera.transform.right;
+        Vector3 cameraForward = playerCamera.transform.forward;
+        Vector3 cameraRight = playerCamera.transform.right;
         cameraForward.y = 0;
         cameraRight.y = 0;
         cameraForward.Normalize();

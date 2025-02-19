@@ -579,7 +579,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 535958145}
-  - component: {fileID: 535958146}
+  - component: {fileID: 535958147}
   m_Layer: 0
   m_Name: AnyPuzzle
   m_TagString: Untagged
@@ -606,7 +606,7 @@ Transform:
   - {fileID: 146491283}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &535958146
+--- !u!114 &535958147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -615,15 +615,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 535958143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b28a3a9442d5345ae44c3f75e10576, type: 3}
+  m_Script: {fileID: 11500000, guid: 6129a2e968faf854f9d33c1791417358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnPuzzleCompleted: {fileID: 11400000, guid: 9d5df3dcff5b7b54e8395ad086ecf71e, type: 2}
-  requiredSequence:
-  - {fileID: 941275385}
-  - {fileID: 1420064263}
-  - {fileID: 889168179}
-  - {fileID: 1761908919}
+  OnPuzzleEvent: {fileID: 11400000, guid: 9a9da0b032d0fd3419a12fd796e54d99, type: 2}
+  canBeUnsolved: 1
+  numActivatedToPass: 3
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +739,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!20 &741607641 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7730420903387667657, guid: 157e5f7528571ed47860eba386518132, type: 3}
+  m_PrefabInstance: {fileID: 7720180886800928854}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &789677455
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -851,17 +853,6 @@ MonoBehaviour:
   agent: {fileID: 807504232}
   target: {fileID: 8860841816793541453}
   DEBUG_STATE: 1
---- !u!114 &889168179 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6022876678508116402, guid: 01cf1717468714a448bdd89a6ba3fd4b, type: 3}
-  m_PrefabInstance: {fileID: 57311416}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed7559386c496104aaa7d54a5e4b2f2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &910592715
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -919,17 +910,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fc49381ed51d754f8b417dceb6a76ae, type: 3}
---- !u!114 &941275385 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4061665465607086137, guid: 4d452a0a50822bd45ab2c177be01111d, type: 3}
-  m_PrefabInstance: {fileID: 266227588}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaf7a8de1afc0d941bf62692d00eb246, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &955483519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,6 +1083,10 @@ PrefabInstance:
       propertyPath: interactable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4772971950534717807, guid: 52afb20df45d3c745ae0845f6923ecb3, type: 3}
+      propertyPath: OnPuzzleEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a9da0b032d0fd3419a12fd796e54d99, type: 2}
     - target: {fileID: 4772971950534717807, guid: 52afb20df45d3c745ae0845f6923ecb3, type: 3}
       propertyPath: OnPuzzleComplete
       value: 
@@ -1405,17 +1389,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1420064263 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7800079030278718269, guid: af865c6aaf0e46b46b51e5c478d0d8a7, type: 3}
-  m_PrefabInstance: {fileID: 288138803}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d77ebc141dc31d41b14ad421a68a096, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1440207866
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,17 +1525,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1761908919 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1903090620321361925, guid: a39cad427c80af04a933acde74ff908e, type: 3}
-  m_PrefabInstance: {fileID: 147527877}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cecaa78ba779e9a44a87d858fd7b539f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2139718989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1825,7 +1787,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7750581703916321057, guid: 157e5f7528571ed47860eba386518132, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 741607641}
+    m_RemovedComponents:
+    - {fileID: 5818839858196926522, guid: 157e5f7528571ed47860eba386518132, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

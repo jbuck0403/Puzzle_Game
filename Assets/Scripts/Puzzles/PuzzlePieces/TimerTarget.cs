@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TimerTarget : BaseTarget
 {
@@ -13,6 +14,7 @@ public class TimerTarget : BaseTarget
 
         // perform the actual pushing of the button
         bool result = base.StartInteract(interactor);
+        DestroyProjectile(interactor);
 
         if (IsActivated)
         {

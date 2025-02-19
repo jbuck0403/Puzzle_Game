@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseTarget : TogglePressurePlate
@@ -5,20 +7,14 @@ public class BaseTarget : TogglePressurePlate
     [SerializeField]
     bool destroyProjectile = true;
 
-    public override bool StartInteract(Transform interactor)
+    protected void DestroyProjectile(Transform interactor)
     {
-        bool result = base.StartInteract(interactor);
-
         if (destroyProjectile && interactor != null)
         {
             Projectile projectile = interactor.GetComponent<Projectile>();
             if (projectile != null)
                 projectile.DestroyProjectile();
         }
-
-        EndInteract();
-
-        return result;
     }
 
     private void OnCollisionEnter(Collision collision)

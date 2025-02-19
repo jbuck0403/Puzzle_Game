@@ -1,7 +1,18 @@
+using UnityEditor.MPE;
 using UnityEngine;
 
 public abstract class BaseDoor : MonoBehaviour, IInteractable
 {
+    protected enum DoorState
+    {
+        Open,
+        Closed,
+        Opening,
+        Closing
+    }
+
+    protected DoorState currentState = DoorState.Closed;
+
     [SerializeField]
     protected bool isLocked = true;
 
@@ -12,7 +23,7 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
     private bool interactable = true;
 
     [SerializeField]
-    private BaseEvent OnPuzzleComplete;
+    private BaseEvent OnPuzzleEvent;
 
     private bool isClosed = true;
     protected bool beingOpened = false;
@@ -27,12 +38,7 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
     protected float openSpeed = 1f;
 
     [SerializeField]
-    protected AnimationCurve openMovementCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-
-    [SerializeField]
-    protected AnimationCurve closeMovementCurve = AnimationCurve.EaseInOut(0, 0, 1, 1); // if using with standalone pressure plate, ensure this matches openMovementCurve to avoid broken animations
-
-    protected AnimationCurve movementCurve;
+    protected AnimationCurve movementCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     protected float moveProgress = 0f;
 
@@ -44,23 +50,21 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
 
     protected Vector3 doorStartPos;
 
+    private bool lockedByDefault;
+
     protected virtual void Awake()
     {
         CanInteract = interactable;
+        lockedByDefault = isLocked;
     }
 
     protected virtual void OnEnable()
     {
-        if (OnPuzzleComplete != null)
+        if (OnPuzzleEvent != null)
         {
-            if (OnPuzzleComplete is PuzzleEvent @puzzleEvent)
+            if (OnPuzzleEvent is PuzzleEvent @puzzleEvent)
             {
-                @puzzleEvent.Subscribe(OnPuzzleCompleted);
-            }
-            else if (OnPuzzleComplete is DoorEvent @doorEvent)
-            {
-                @doorEvent.SubscribeToOpen(TriggerOpenDoor);
-                @doorEvent.SubscribeToClose(TriggerCloseDoor);
+                @puzzleEvent.Subscribe(OnPuzzleCompleted, OnPuzzleUnsolved);
             }
         }
     }
@@ -78,52 +82,44 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
 
     public void TriggerOpenDoor()
     {
-        if (beingClosed) // If door is currently opening
-        {
-            moveProgress = 1 - moveProgress;
-            beingOpened = false;
-        }
-        movementCurve = openMovementCurve;
-        beingOpened = true;
-        isClosed = false;
+        SetDoorState(DoorState.Opening);
     }
 
     public void TriggerCloseDoor()
     {
-        if (beingOpened) // If door is currently opening
-        {
-            moveProgress = 1 - moveProgress;
-            beingOpened = false;
-        }
-        movementCurve = closeMovementCurve;
-        beingClosed = true;
-        isClosed = true;
+        SetDoorState(DoorState.Closing);
     }
 
     void Update()
     {
-        if (beingOpened)
+        if (currentState == DoorState.Opening)
         {
             OpenDoor();
+            SetOpenOrClosed(DoorState.Opening);
         }
-        else if (beingClosed)
+        else if (currentState == DoorState.Closing)
         {
             CloseDoor();
+            SetOpenOrClosed(DoorState.Closing);
+        }
+    }
+
+    private void SetOpenOrClosed(DoorState currentState)
+    {
+        if (moveProgress >= 1f)
+        {
+            SetDoorState(currentState == DoorState.Opening ? DoorState.Open : DoorState.Closed);
+            moveProgress = 0f;
         }
     }
 
     protected virtual void OnDisable()
     {
-        if (OnPuzzleComplete != null)
+        if (OnPuzzleEvent != null)
         {
-            if (OnPuzzleComplete is PuzzleEvent @event)
+            if (OnPuzzleEvent is PuzzleEvent @event)
             {
-                @event.Unsubscribe(OnPuzzleCompleted);
-            }
-            else if (OnPuzzleComplete is DoorEvent @doorEvent)
-            {
-                @doorEvent.UnsubscribeFromOpen(TriggerOpenDoor);
-                @doorEvent.UnsubscribeFromClose(TriggerCloseDoor);
+                @event.Unsubscribe(OnPuzzleCompleted, OnPuzzleUnsolved);
             }
         }
     }
@@ -191,21 +187,48 @@ public abstract class BaseDoor : MonoBehaviour, IInteractable
     public void ForceOpenDoor()
     {
         UnlockDoor(true);
-        StartInteract(default);
-        // if (IsClosed && !beingOpened)
-        // {
-        //     beingOpened = true;
-        //     isClosed = false;
-        // }
+        TriggerOpenDoor();
+    }
+
+    public void ForceCloseDoor()
+    {
+        LockDoor(true);
+        TriggerCloseDoor();
     }
 
     private void OnPuzzleCompleted()
     {
-        UnlockDoor(true);
         ForceOpenDoor();
+    }
+
+    private void OnPuzzleUnsolved()
+    {
+        ForceCloseDoor();
     }
 
     public abstract void OpenDoor();
 
     public abstract void CloseDoor();
+
+    protected void SetDoorState(DoorState newState)
+    {
+        // handle animation progress when changing between Opening/Closing
+        if (
+            (currentState == DoorState.Opening && newState == DoorState.Closing)
+            || (currentState == DoorState.Closing && newState == DoorState.Opening)
+        )
+        {
+            moveProgress = 1 - moveProgress;
+        }
+
+        // update state
+        currentState = newState;
+
+        // update helper flags based on state
+        beingOpened = newState == DoorState.Opening;
+        beingClosed = newState == DoorState.Closing;
+        isClosed = newState == DoorState.Closed;
+
+        Debug.Log($"Door state changed to: {newState}");
+    }
 }

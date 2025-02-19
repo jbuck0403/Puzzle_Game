@@ -4,25 +4,31 @@ using UnityEngine;
 
 public abstract class BasePuzzle : MonoBehaviour
 {
-    // subscribe to this event to trigger what happens when the puzzle is solved
-    // public event Action OnPuzzleCompleted;
-
-    public event Action OnPuzzleStateChanged;
+    [SerializeField]
+    protected PuzzleEvent OnPuzzleEvent;
 
     [SerializeField]
-    protected PuzzleEvent OnPuzzleCompleted;
+    public bool canBeUnsolved = false; // flag to allow puzzle to return to unsolved state
 
+    public event Action OnPuzzleStateChanged;
     protected List<BasePuzzlePiece> puzzlePieces = new List<BasePuzzlePiece>();
-
     protected bool isCompleted = false;
-
     public bool IsCompleted => isCompleted;
+
+    public virtual void UnSolvePuzzle()
+    {
+        if (canBeUnsolved && isCompleted)
+        {
+            isCompleted = false;
+            OnPuzzleEvent.RaiseUnSolvedEvent();
+        }
+    }
 
     private void Awake()
     {
-        if (OnPuzzleCompleted != null)
+        if (OnPuzzleEvent != null && !canBeUnsolved)
         {
-            OnPuzzleCompleted.Subscribe(() => ResetPuzzle(true));
+            OnPuzzleEvent.Subscribe(() => ResetPuzzle(true)); // only reset and disable buttons if puzzle cannot be unsolved
         }
     }
 
@@ -54,14 +60,19 @@ public abstract class BasePuzzle : MonoBehaviour
 
     public virtual void CheckPuzzleSolved()
     {
-        if (IsPuzzleConditionMet() && !isCompleted)
+        bool conditionMet = IsPuzzleConditionMet();
+        if (conditionMet && !isCompleted)
         {
             print("Puzzle Completed!");
             isCompleted = true;
-            if (OnPuzzleCompleted != null)
+            if (OnPuzzleEvent != null)
             {
-                OnPuzzleCompleted.RaiseEvent();
+                OnPuzzleEvent.RaiseSolvedEvent();
             }
+        }
+        else if (!conditionMet && isCompleted && canBeUnsolved)
+        {
+            UnSolvePuzzle();
         }
     }
 

@@ -22,8 +22,11 @@ public class BasePressurePlate : BaseButton
         if ((interactibleLayer.value & (1 << other.gameObject.layer)) == 0)
             return;
 
-        numStandingBefore = standingOnPlate.Count;
-        standingOnPlate.Add(other);
+        if (other.GetComponent<Projectile>() == null)
+        {
+            numStandingBefore = standingOnPlate.Count;
+            standingOnPlate.Add(other);
+        }
 
         StartInteract(other.transform);
     }

@@ -39,7 +39,7 @@ public abstract class BasePuzzlePiece : MonoBehaviour
     protected void SetActivated(bool activated)
     {
         // if in a puzzle, only block if puzzle is completed
-        if (puzzle != null && puzzle.IsCompleted)
+        if (puzzle != null && puzzle.IsCompleted && !puzzle.canBeUnsolved)
             return;
 
         // if not in a puzzle, require standalone and event
@@ -56,7 +56,7 @@ public abstract class BasePuzzlePiece : MonoBehaviour
             isActivated = activated;
             if (onStateChangedEvent != null && !standalonePlate)
             {
-                onStateChangedEvent.RaiseEvent();
+                onStateChangedEvent.RaiseSolvedEvent();
             }
             else
             {
