@@ -153,11 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520ed37293f99ff4389fe8dd7b1e9f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLocked: 0
-  openOnStart: 0
-  interactable: 0
-  OnPuzzleEvent: {fileID: 11400000, guid: b297201c1fc485a4caa17878d98ef1fe, type: 2}
-  openSpeed: 1
+  moveSpeed: 1
   movementCurve:
     serializedVersion: 2
     m_Curve:
@@ -182,8 +178,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  door: {fileID: 221585492726221011}
-  doorTarget: {fileID: 8353799048980881626}
+  movingObject: {fileID: 221585492726221011}
+  endTarget: {fileID: 8353799048980881626}
+  OnPuzzleEvent: {fileID: 11400000, guid: b297201c1fc485a4caa17878d98ef1fe, type: 2}
+  isLocked: 0
+  interactable: 0
 --- !u!1 &8307509171646071926
 GameObject:
   m_ObjectHideFlags: 0
@@ -315,7 +314,7 @@ Transform:
   m_GameObject: {fileID: 9147823152661730822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: -6.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

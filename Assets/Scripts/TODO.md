@@ -1,0 +1,5 @@
+- second to last room puzzle
+    -- all puzzle
+    -- toggletarget under each platform
+    -- timertarget x3
+        -- each target is on a moving platform, scattered throughout the room

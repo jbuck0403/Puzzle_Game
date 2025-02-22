@@ -14,41 +14,23 @@ public class DoubleDoor : BaseDoor
 
     public override void OpenDoor()
     {
-        MoveDoors(doorStartPos, doorTarget.localPosition, ref beingOpened);
+        // move door A
+        MoveObject(movingObject, startPos, endTarget.localPosition, moveProgress, movementCurve);
+
+        // move door B in opposite direction
+        Vector3 doorBStart = doorHalfBStartPos;
+        Vector3 doorBTarget = doorHalfBStartPos - (endTarget.localPosition - startPos);
+        MoveObject(doorHalfB, doorBStart, doorBTarget, moveProgress, movementCurve);
     }
 
     public override void CloseDoor()
     {
-        MoveDoors(doorTarget.localPosition, doorStartPos, ref beingClosed);
-    }
+        // move door A
+        MoveObject(movingObject, endTarget.localPosition, startPos, moveProgress, movementCurve);
 
-    private void MoveDoors(Vector3 doorAStart, Vector3 doorATarget, ref bool movementFlag)
-    {
-        if (moveProgress < 1f)
-        {
-            moveProgress += Time.deltaTime * openSpeed;
-
-            Vector3 doorAMovement = doorATarget - doorAStart;
-
-            SlideDoor(door, doorAStart, doorATarget, moveProgress, movementCurve);
-
-            Vector3 doorBStart =
-                (doorATarget == doorStartPos)
-                    ? doorHalfBStartPos - (doorTarget.localPosition - doorStartPos)
-                    : doorHalfBStartPos;
-
-            SlideDoor(
-                doorHalfB,
-                doorBStart,
-                doorBStart - doorAMovement,
-                moveProgress,
-                movementCurve
-            );
-        }
-        else
-        {
-            movementFlag = false;
-            moveProgress = 0f;
-        }
+        // move door B in opposite direction
+        Vector3 doorBStart = doorHalfBStartPos - (endTarget.localPosition - startPos);
+        Vector3 doorBTarget = doorHalfBStartPos;
+        MoveObject(doorHalfB, doorBStart, doorBTarget, moveProgress, movementCurve);
     }
 }

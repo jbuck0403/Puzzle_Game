@@ -41,11 +41,6 @@ public class PlayerInput : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
-    // void Start()
-    // {
-    //     currentWeapon.GetComponent<Weapon>().SetCollected(true);
-    // }
-
     void Update()
     {
         // CameraFollowMouse();
@@ -53,11 +48,6 @@ public class PlayerInput : MonoBehaviour
         {
             CameraFollowMouse();
         }
-
-        // if (Input.GetKeyDown(KeyCode.G))
-        // {
-        //     DropWeapon();
-        // }
 
         TriggerJump();
     }
@@ -75,41 +65,6 @@ public class PlayerInput : MonoBehaviour
             jumping = true;
         }
     }
-
-    // void DropWeapon()
-    // {
-    //     if (currentWeapon != null)
-    //     {
-    //         Rigidbody weaponRb = currentWeapon.GetComponent<Rigidbody>();
-    //         Collectible collectible = currentWeapon.GetComponent<Collectible>();
-
-    //         if (weaponRb == null || collectible == null)
-    //             return;
-
-    //         currentWeapon.SetParent(null);
-    //         weaponRb.isKinematic = false;
-    //         collectible.SetCollected(false);
-    //     }
-    // }
-
-    // public void EquipWeapon(Transform weapon)
-    // {
-    //     if (weapon == null)
-    //         return;
-
-    //     DropWeapon();
-
-    //     Rigidbody weaponRb = weapon.GetComponent<Rigidbody>();
-    //     Collectible collectible = weapon.GetComponent<Collectible>();
-
-    //     weapon.SetParent(mainHand);
-    //     weapon.localPosition = Vector3.zero;
-    //     weapon.localRotation = Quaternion.identity;
-    //     weaponRb.isKinematic = true;
-    //     collectible.SetCollected(true);
-
-    //     currentWeapon = weapon;
-    // }
 
     void CameraFollowMouse()
     {
@@ -144,6 +99,8 @@ public class PlayerInput : MonoBehaviour
 
     void HandleMovement()
     {
+        Vector3 movement = Vector3.zero;
+
         // Get camera's forward and right directions and flatten them
         Vector3 cameraForward = playerCamera.transform.forward;
         Vector3 cameraRight = playerCamera.transform.right;
@@ -156,13 +113,14 @@ public class PlayerInput : MonoBehaviour
         float forward = Input.GetAxis("Vertical");
         float right = Input.GetAxis("Horizontal");
 
-        // Move in camera's direction
-        Vector3 movement =
+        // Add player input movement
+        movement +=
             moveSpeed * Time.deltaTime * ((cameraForward * forward) + (cameraRight * right));
 
-        // Apply jump
-        movement.y = verticalVelocity * Time.deltaTime;
+        // Apply jump/gravity
+        movement.y += verticalVelocity * Time.deltaTime;
 
+        // Move the character
         characterController.Move(movement);
     }
 

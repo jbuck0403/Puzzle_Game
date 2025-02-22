@@ -10,34 +10,21 @@ public class SingleDoor : BaseDoor
     {
         base.Start();
         // store the original X and Z positions
-        originalX = door.localPosition.x;
-        originalZ = door.localPosition.z;
+        originalX = movingObject.localPosition.x;
+        originalZ = movingObject.localPosition.z;
     }
 
     public override void OpenDoor()
     {
-        MoveDoor(doorStartPos, doorTarget.localPosition, ref beingOpened);
+        Vector3 fromPos = new Vector3(originalX, startPos.y, originalZ);
+        Vector3 toPos = new Vector3(originalX, endTarget.position.y, originalZ);
+        MoveObject(movingObject, fromPos, toPos, moveProgress, movementCurve);
     }
 
     public override void CloseDoor()
     {
-        MoveDoor(doorTarget.localPosition, doorStartPos, ref beingClosed);
-    }
-
-    private void MoveDoor(Vector3 startPos, Vector3 targetPos, ref bool movementFlag)
-    {
-        if (moveProgress < 1f)
-        {
-            moveProgress += Time.deltaTime * openSpeed;
-            // Only move on Y axis for single door, using original X and Z positions
-            float newY = Mathf.Lerp(startPos.y, targetPos.y, movementCurve.Evaluate(moveProgress));
-            Vector3 newPos = new Vector3(originalX, newY, originalZ);
-            door.localPosition = newPos;
-        }
-        else
-        {
-            movementFlag = false;
-            moveProgress = 0f;
-        }
+        Vector3 fromPos = new Vector3(originalX, endTarget.position.y, originalZ);
+        Vector3 toPos = new Vector3(originalX, startPos.y, originalZ);
+        MoveObject(movingObject, fromPos, toPos, moveProgress, movementCurve);
     }
 }

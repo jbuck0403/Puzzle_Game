@@ -46,12 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58a4c20c887121444bba02b386bb2852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLocked: 1
-  openOnStart: 0
-  interactable: 1
-  OnPuzzleComplete: {fileID: 0}
-  openSpeed: 1
-  openMovementCurve:
+  moveSpeed: 1
+  movementCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -75,32 +71,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  closeMovementCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  door: {fileID: 9098375226968253543}
-  doorTarget: {fileID: 506677866305927852}
+  movingObject: {fileID: 9098375226968253543}
+  endTarget: {fileID: 506677866305927852}
+  OnPuzzleEvent: {fileID: 0}
+  isLocked: 0
+  interactable: 0
   doorHalfB: {fileID: 571405407916706137}
 --- !u!1 &3685147401099113208
 GameObject:
