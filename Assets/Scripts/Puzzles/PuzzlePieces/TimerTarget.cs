@@ -12,16 +12,18 @@ public class TimerTarget : BaseTarget
     {
         CleanUpCoroutine(disableAfterTimeCoroutine);
 
-        // perform the actual pushing of the button
-        bool result = base.StartInteract(interactor);
-        DestroyProjectile(interactor);
+        if (!IsActivated)
+        {
+            base.StartInteract(interactor);
+        }
 
         if (IsActivated)
         {
             disableAfterTimeCoroutine = StartCoroutine(DisableAfterTime(timeToDisable));
         }
 
-        return result;
+        DestroyProjectile(interactor);
+        return IsActivated;
     }
 
     private IEnumerator DisableAfterTime(float timeToWait)

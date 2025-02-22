@@ -6,5 +6,5 @@ public class PuzzleEvent : BaseEvent
 {
     public void RaiseSolvedEvent() => RaisePrimaryEvent();
 
-    public void RaiseUnSolvedEvent() => RaiseSecondaryEvent();
+    public void RaiseUnsolvedEvent() => RaiseSecondaryEvent();
 }

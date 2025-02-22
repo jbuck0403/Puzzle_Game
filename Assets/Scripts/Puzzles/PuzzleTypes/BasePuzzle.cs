@@ -20,11 +20,11 @@ public abstract class BasePuzzle : MonoBehaviour
         if (canBeUnsolved && isCompleted)
         {
             isCompleted = false;
-            OnPuzzleEvent.RaiseUnSolvedEvent();
+            OnPuzzleEvent.RaiseUnsolvedEvent();
         }
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if (OnPuzzleEvent != null && !canBeUnsolved)
         {

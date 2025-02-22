@@ -5,7 +5,7 @@ using UnityEngine;
 public class BaseButton : BasePuzzlePiece, IInteractable
 {
     [SerializeField]
-    private BoxCollider interactZone;
+    protected BoxCollider interactZone;
 
     [SerializeField]
     private MeshRenderer meshRenderer;
@@ -55,7 +55,7 @@ public class BaseButton : BasePuzzlePiece, IInteractable
         DeactivateButton();
     }
 
-    protected void ActivateButton()
+    protected virtual void ActivateButton()
     {
         print("ACTIVATING BUTTON");
         if (!disabled)
@@ -69,7 +69,7 @@ public class BaseButton : BasePuzzlePiece, IInteractable
         }
     }
 
-    protected void DeactivateButton()
+    protected virtual void DeactivateButton()
     {
         print("DEACTIVATING BUTTON");
         if (!disabled)

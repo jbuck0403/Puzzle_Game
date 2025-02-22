@@ -8,13 +8,6 @@ public class ToggleTarget : BaseTarget
 
         DestroyProjectile(interactor);
 
-        EndInteract();
-
         return result;
     }
-
-    // private void OnCollisionEnter(Collision collision)
-    // {
-    //     StartInteract(collision.transform);
-    // }
 }

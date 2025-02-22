@@ -11,6 +11,23 @@ public class BasePressurePlate : BaseButton
         base.Start();
 
         CanInteract = false; // disallow IInteractable behavior
+
+        // check for objects already inside the trigger
+        Collider[] hitColliders = Physics.OverlapBox(
+            transform.TransformPoint(interactZone.center),
+            interactZone.size * 0.5f,
+            transform.rotation,
+            interactibleLayer
+        );
+
+        // add any valid colliders to our standing list
+        foreach (Collider col in hitColliders)
+        {
+            if (col != null && col.GetComponent<Projectile>() == null)
+            {
+                standingOnPlate.Add(col);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -40,7 +57,10 @@ public class BasePressurePlate : BaseButton
         if ((interactibleLayer.value & (1 << other.gameObject.layer)) == 0)
             return;
 
-        standingOnPlate.Remove(other);
+        if (other.GetComponent<Projectile>() == null)
+        {
+            standingOnPlate.Remove(other);
+        }
 
         // only deactivate if nothing is left on the plate
         if (standingOnPlate.Count == 0)

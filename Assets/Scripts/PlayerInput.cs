@@ -23,6 +23,8 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private float jumpForce = 5f;
     private CharacterController characterController;
+
+    [SerializeField]
     private float mouseSensitivity = 1;
     private float maxVerticalAngle = 40f;
     private float verticalRotation = 0f;
@@ -46,6 +48,7 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
+        // CameraFollowMouse();
         if (Input.GetMouseButton(1))
         {
             CameraFollowMouse();

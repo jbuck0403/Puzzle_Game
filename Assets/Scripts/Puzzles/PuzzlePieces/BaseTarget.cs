@@ -17,8 +17,8 @@ public class BaseTarget : TogglePressurePlate
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        StartInteract(collision.transform);
-    }
+    // private void OnCollisionEnter(Collision collision)
+    // {
+    //     StartInteract(collision.transform);
+    // }
 }

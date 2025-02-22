@@ -4,7 +4,6 @@ public class TogglePressurePlate : BasePressurePlate
 {
     public override bool StartInteract(Transform interactor)
     {
-        print($"STANDING BEFORE: {numStandingBefore}");
         if (numStandingBefore == 0)
         {
             SetActivated(!IsActivated); // toggles state

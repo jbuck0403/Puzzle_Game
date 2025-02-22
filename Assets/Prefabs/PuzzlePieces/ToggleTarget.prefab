@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1903090620321361925}
   - component: {fileID: -5935037525042305455}
   m_Layer: 0
-  m_Name: Target
+  m_Name: ToggleTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
