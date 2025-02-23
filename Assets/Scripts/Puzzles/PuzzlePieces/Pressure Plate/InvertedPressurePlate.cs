@@ -7,32 +7,16 @@ public class InvertedPressurePlate : BasePressurePlate
     protected override void Start()
     {
         base.Start();
-
-        if (standingOnPlate.Count > 0)
-        {
-            DeactivateButton();
-        }
-        else
-        {
-            ActivateButton();
-        }
+        base.ActivateButton();
     }
 
-    public override bool StartInteract(Transform interactor)
+    protected override void ActivateButton()
     {
-        if (!disabled)
-        {
-            DeactivateButton();
-            return IsActivated;
-        }
-        return false;
+        base.DeactivateButton();
     }
 
-    public override void EndInteract()
+    protected override void DeactivateButton()
     {
-        if (!disabled)
-        {
-            ActivateButton();
-        }
+        base.ActivateButton();
     }
 }

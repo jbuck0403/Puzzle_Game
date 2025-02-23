@@ -24,6 +24,14 @@ public class SequencePuzzle : BasePuzzle
             {
                 // correct next piece
                 currentSequence.Add(activatedPiece);
+
+                // If we completed the sequence, check puzzle solved and then reset
+                if (currentSequence.Count == requiredSequence.Count)
+                {
+                    base.OnPieceStateChanged();
+                    ResetPuzzle(true); // Disable all buttons after completion
+                    return;
+                }
             }
             else
             {
@@ -33,7 +41,7 @@ public class SequencePuzzle : BasePuzzle
             }
         }
 
-        // check if puzzle is solved
+        // Only check puzzle state if we haven't already handled it
         base.OnPieceStateChanged();
     }
 
@@ -42,28 +50,34 @@ public class SequencePuzzle : BasePuzzle
         // puzzle is solved when the current sequence matches the required sequence
         bool conditionMet = currentSequence.Count == requiredSequence.Count;
 
+        if (conditionMet)
+        {
+            // Make sure to reset and disable all buttons when the puzzle is solved
+            ResetPuzzle(true);
+        }
+
         return conditionMet;
     }
 
-    // private void ResetSequence(bool disable = false)
-    // {
-    //     currentSequence.Clear();
-    //     // deactivate all pieces
-    //     foreach (var piece in puzzlePieces)
-    //     {
-    //         if (piece is BaseButton button)
-    //         {
-    //             if (disable)
-    //             {
-    //                 print($"disabling {piece.name}");
-    //                 button.DisableButton();
-    //             }
-    //             else
-    //             {
-    //                 print($"force deactivating {piece.name}");
-    //                 button.ForceDeactivate();
-    //             }
-    //         }
-    //     }
-    // }
+    public override void ResetPuzzle(bool disable = false)
+    {
+        // Clear the current sequence first
+        currentSequence.Clear();
+
+        // Then reset all buttons
+        foreach (var piece in puzzlePieces)
+        {
+            if (piece is BaseButton button)
+            {
+                if (disable)
+                {
+                    button.DisableButton();
+                }
+                else
+                {
+                    button.ForceDeactivate();
+                }
+            }
+        }
+    }
 }

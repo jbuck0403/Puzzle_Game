@@ -13,8 +13,11 @@ public abstract class BasePuzzle : MonoBehaviour
     [SerializeField]
     protected List<BasePuzzlePiece> externalPuzzlePieces = new List<BasePuzzlePiece>(); // pieces that belong to other puzzles
 
+    [SerializeField]
+    private bool disableOnReset = false;
     public event Action OnPuzzleStateChanged;
     protected List<BasePuzzlePiece> puzzlePieces = new List<BasePuzzlePiece>();
+
     protected bool isCompleted = false;
     public bool IsCompleted => isCompleted;
 
@@ -31,7 +34,7 @@ public abstract class BasePuzzle : MonoBehaviour
     {
         if (OnPuzzleEvent != null && !canBeUnsolved)
         {
-            OnPuzzleEvent.Subscribe(() => ResetPuzzle(true)); // only reset and disable buttons if puzzle cannot be unsolved
+            OnPuzzleEvent.Subscribe(() => ResetPuzzle(disableOnReset)); // only reset and disable buttons if puzzle cannot be unsolved
         }
 
         // Register any external puzzle pieces

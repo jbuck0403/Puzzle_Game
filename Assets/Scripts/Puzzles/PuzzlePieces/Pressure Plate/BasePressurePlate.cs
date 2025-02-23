@@ -12,6 +12,11 @@ public class BasePressurePlate : BaseButton
 
         CanInteract = false; // disallow IInteractable behavior
 
+        RecheckStandingObjects();
+    }
+
+    protected void RecheckStandingObjects()
+    {
         // check for objects already inside the trigger
         Collider[] hitColliders = Physics.OverlapBox(
             transform.TransformPoint(interactZone.center),
@@ -73,6 +78,21 @@ public class BasePressurePlate : BaseButton
     {
         standingOnPlate.Clear();
         base.ForceDeactivate();
+
+        // Recheck for objects still physically on the plate
+        RecheckStandingObjects();
+
+        // If objects are still present, handle according to the pressure plate type
+        if (standingOnPlate.Count > 0)
+        {
+            OnObjectsStillPresent();
+        }
+    }
+
+    protected virtual void OnObjectsStillPresent()
+    {
+        // Base implementation does nothing
+        // Derived classes can override this to handle objects still being present after force deactivate
     }
 
     // protected override void OnDisable()

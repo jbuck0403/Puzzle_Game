@@ -20,12 +20,12 @@ public abstract class BaseDoor : BaseMovable, IInteractable
         CanInteract = interactable;
     }
 
-    public void TriggerOpenDoor()
+    public virtual void TriggerOpenDoor()
     {
         SetMovementState(MovementState.MovingToEnd);
     }
 
-    public void TriggerCloseDoor()
+    public virtual void TriggerCloseDoor()
     {
         SetMovementState(MovementState.MovingToStart);
     }
@@ -78,13 +78,13 @@ public abstract class BaseDoor : BaseMovable, IInteractable
         }
     }
 
-    public void ForceOpenDoor()
+    public virtual void ForceOpenDoor()
     {
         UnlockDoor(true);
         TriggerOpenDoor();
     }
 
-    public void ForceCloseDoor()
+    public virtual void ForceCloseDoor()
     {
         LockDoor(true);
         TriggerCloseDoor();
