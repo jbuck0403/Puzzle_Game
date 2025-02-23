@@ -133,6 +133,11 @@ public class PlayerInput : MonoBehaviour
             verticalVelocity = jumpForce;
             jumping = false;
         }
+        else if (isGrounded)
+        {
+            // reset vertical velocity when grounded
+            verticalVelocity = Physics.gravity.y * Time.deltaTime;
+        }
         else
         {
             verticalVelocity += Physics.gravity.y * Time.deltaTime;

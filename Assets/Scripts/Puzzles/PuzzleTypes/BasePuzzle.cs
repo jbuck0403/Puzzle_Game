@@ -10,6 +10,9 @@ public abstract class BasePuzzle : MonoBehaviour
     [SerializeField]
     public bool canBeUnsolved = false; // flag to allow puzzle to return to unsolved state
 
+    [SerializeField]
+    protected List<BasePuzzlePiece> externalPuzzlePieces = new List<BasePuzzlePiece>(); // pieces that belong to other puzzles
+
     public event Action OnPuzzleStateChanged;
     protected List<BasePuzzlePiece> puzzlePieces = new List<BasePuzzlePiece>();
     protected bool isCompleted = false;
@@ -29,6 +32,15 @@ public abstract class BasePuzzle : MonoBehaviour
         if (OnPuzzleEvent != null && !canBeUnsolved)
         {
             OnPuzzleEvent.Subscribe(() => ResetPuzzle(true)); // only reset and disable buttons if puzzle cannot be unsolved
+        }
+
+        // Register any external puzzle pieces
+        foreach (var piece in externalPuzzlePieces)
+        {
+            if (piece != null)
+            {
+                AddPuzzlePiece(piece);
+            }
         }
     }
 

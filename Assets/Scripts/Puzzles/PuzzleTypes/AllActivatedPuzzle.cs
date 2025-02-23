@@ -21,6 +21,23 @@ public class AllActivatedPuzzle : BasePuzzle
 
     private List<GameObject> indicators = new List<GameObject>();
 
+    public override void CheckPuzzleSolved()
+    {
+        base.CheckPuzzleSolved();
+        if (IsCompleted)
+        {
+            ForceIndicatorsOn();
+        }
+    }
+
+    private void ForceIndicatorsOn()
+    {
+        for (int i = 0; i < puzzlePieces.Count; i++)
+        {
+            UpdateIndicator(indicators[i], true);
+        }
+    }
+
     protected override bool IsPuzzleConditionMet()
     {
         // puzzle is solved when all pieces are activated

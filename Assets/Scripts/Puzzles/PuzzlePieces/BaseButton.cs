@@ -60,12 +60,11 @@ public class BaseButton : BasePuzzlePiece, IInteractable
         print("ACTIVATING BUTTON");
         if (!disabled)
         {
-            SetActivated(true);
-
             if (meshRenderer != null && pressedMaterial != null)
             {
                 meshRenderer.material = pressedMaterial;
             }
+            SetActivated(true);
         }
     }
 
@@ -74,12 +73,11 @@ public class BaseButton : BasePuzzlePiece, IInteractable
         print("DEACTIVATING BUTTON");
         if (!disabled)
         {
-            SetActivated(false);
-
             if (meshRenderer != null && defaultMaterial != null)
             {
                 meshRenderer.material = defaultMaterial;
             }
+            SetActivated(false);
         }
     }
 

@@ -1,5 +1,12 @@
-- second to last room puzzle
+- room05
     -- all puzzle
     -- toggletarget under each platform
     -- timertarget x3
         -- each target is on a moving platform, scattered throughout the room
+    -- opens door to first room to let you grab the box to solve the next puzzle
+- room06
+    -- any puzzle
+    -- pressure plate in the pit
+    -- door is on the wall
+        -- requires player to jump
+    -- opens door to room07

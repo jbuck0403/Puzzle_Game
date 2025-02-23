@@ -3,7 +3,12 @@ guid: 2cae0b8c894566047abbcf248362b603
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - OnPuzzleEvent: {instanceID: 0}
+  - indicatorPrefab: {instanceID: 0}
+  - puzzleLightPosition: {instanceID: 0}
+  - pressedMaterial: {fileID: 2100000, guid: a258b690c845b3847900f0841b7423a1, type: 2}
+  - defaultMaterial: {fileID: 2100000, guid: f8291d32c347bdb4b908f0e8aef8e0b4, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
