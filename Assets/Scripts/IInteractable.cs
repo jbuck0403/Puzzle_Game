@@ -7,6 +7,8 @@ public interface IInteractable
     bool CanInteract { get; }
     float InteractRange { get; }
 
+    string PromptText => "Press E";
+
     public bool StartInteract(Transform interactor);
 
     public void EndInteract();

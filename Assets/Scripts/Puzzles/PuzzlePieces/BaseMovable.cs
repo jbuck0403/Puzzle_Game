@@ -155,7 +155,7 @@ public abstract class BaseMovable : MonoBehaviour, IPuzzleAffected
         isMovingToEnd = newState == MovementState.MovingToEnd;
         isMovingToStart = newState == MovementState.MovingToStart;
 
-        Debug.Log($"Movement state changed to: {newState}");
+        // Debug.Log($"Movement state changed to: {newState}");
     }
 
     public abstract void MoveToEnd();

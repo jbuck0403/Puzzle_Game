@@ -137,12 +137,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f22a723d25636047bb47a4dbcdc7385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 7730420903387667657}
+  playerCamera: {fileID: 0}
   head: {fileID: 6753225674589042527}
   body: {fileID: 3730294833089157793}
   mainHand: {fileID: 5690773455419625879}
   moveSpeed: 10
   jumpForce: 5
+  mouseSensitivity: 1
   currentWeapon: {fileID: 0}
   isHolding: 1
 --- !u!136 &6558497430460884935
@@ -209,6 +210,7 @@ MonoBehaviour:
   interactableLayerMask:
     serializedVersion: 2
     m_Bits: 64
+  interactionEvents: {fileID: 11400000, guid: 0e162678cff49db49b3e195cd0b30f2c, type: 2}
 --- !u!114 &7274432378871483519
 MonoBehaviour:
   m_ObjectHideFlags: 0

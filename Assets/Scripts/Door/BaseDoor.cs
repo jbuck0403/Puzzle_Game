@@ -15,6 +15,8 @@ public abstract class BaseDoor : BaseMovable, IInteractable
     public bool CanInteract { get; protected set; }
     public float InteractRange { get; } = InteractDistance.Medium;
 
+    public string PromptText => "Press E";
+
     protected virtual void Awake()
     {
         CanInteract = interactable;

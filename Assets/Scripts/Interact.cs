@@ -12,6 +12,11 @@ public class Interact : MonoBehaviour
     [SerializeField]
     private LayerMask interactableLayerMask;
 
+    [SerializeField]
+    private InteractionEvents interactionEvents;
+
+    private IInteractable currentInteractable;
+
     void Start()
     {
         mainCamera = Camera.main;
@@ -42,40 +47,72 @@ public class Interact : MonoBehaviour
             )
         )
         {
-            Debug.Log(
-                $"Hit object: {hitInfo.collider.gameObject.name} on layer {hitInfo.collider.gameObject.layer}"
-            );
-
             IInteractable interactable = hitInfo.collider.GetComponent<IInteractable>();
             if (interactable == null)
             {
-                // try to find it in parent
                 interactable = hitInfo.collider.GetComponentInParent<IInteractable>();
                 if (interactable == null)
                 {
-                    Debug.Log($"No IInteractable found on {hitInfo.collider.gameObject.name}");
+                    HandleNoInteractable();
                     return;
                 }
             }
 
-            if (interactable.CanInteract && hitInfo.distance <= interactable.InteractRange)
+            bool isWithinRange = hitInfo.distance <= interactable.InteractRange;
+            if (interactable.CanInteract)
             {
-                print("HOVERING INTERACTABLE");
-                if (Input.GetKeyDown(KeyCode.E))
+                // Only raise event if this is a new interactable or range status changed
+                if (currentInteractable != interactable)
                 {
-                    print($"Attempting to interact with {hitInfo.collider.gameObject.name}");
-                    interactable.StartInteract(transform);
+                    HandleNewInteractable(interactable, isWithinRange);
                 }
-                else if (Input.GetKeyUp(KeyCode.E))
+
+                // Handle interaction input
+                if (isWithinRange)
                 {
-                    interactable.EndInteract();
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        interactable.StartInteract(transform);
+                    }
+                    else if (Input.GetKeyUp(KeyCode.E))
+                    {
+                        interactable.EndInteract();
+                    }
                 }
             }
             else
             {
-                Debug.Log(
-                    $"Not interactable: CanInteract={interactable.CanInteract}, distance={hitInfo.distance}, InteractRange={interactable.InteractRange}"
-                );
+                HandleNoInteractable();
+            }
+        }
+        else
+        {
+            HandleNoInteractable();
+        }
+    }
+
+    private void HandleNewInteractable(IInteractable interactable, bool isWithinRange)
+    {
+        currentInteractable = interactable;
+        if (interactionEvents != null)
+        {
+            var data = new InteractionEvents.InteractionEventData(
+                interactable,
+                interactable.PromptText,
+                isWithinRange
+            );
+            interactionEvents.RaiseInteractableHovered(data);
+        }
+    }
+
+    private void HandleNoInteractable()
+    {
+        if (currentInteractable != null)
+        {
+            currentInteractable = null;
+            if (interactionEvents != null)
+            {
+                interactionEvents.RaiseInteractableUnhovered();
             }
         }
     }
