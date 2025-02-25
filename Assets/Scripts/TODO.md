@@ -1,12 +1,18 @@
-- room05
-    -- all puzzle
-    -- toggletarget under each platform
-    -- timertarget x3
-        -- each target is on a moving platform, scattered throughout the room
-    -- opens door to first room to let you grab the box to solve the next puzzle
-- room06
-    -- any puzzle
-    -- pressure plate in the pit
-    -- door is on the wall
-        -- requires player to jump
-    -- opens door to room07
+- SFX
+    - walking sound
+    - shooting sound
+    - button activating sound
+    - puzzle solved sound
+- VFX
+    - add the pixelationFX package
+- UI
+    - add pause menu
+        - pause on menu open
+            - set world time to 0
+        - Continue button
+            - unpause
+        - Quit to Main Menu button
+            - immediately goes to main menu
+- Post-Processing
+    - research post-processing techniques
+

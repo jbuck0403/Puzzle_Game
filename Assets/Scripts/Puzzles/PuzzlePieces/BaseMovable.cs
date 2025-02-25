@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class BaseMovable : MonoBehaviour, IPuzzleAffected
 {
-    protected enum MovementState
+    public enum MovementState
     {
         AtStart,
         AtEnd,
@@ -10,7 +10,7 @@ public abstract class BaseMovable : MonoBehaviour, IPuzzleAffected
         MovingToStart
     }
 
-    protected MovementState currentState = MovementState.AtStart;
+    public MovementState currentState = MovementState.AtStart;
 
     [SerializeField]
     protected float moveSpeed = 1f;
@@ -18,7 +18,7 @@ public abstract class BaseMovable : MonoBehaviour, IPuzzleAffected
     [SerializeField]
     protected AnimationCurve movementCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    protected float moveProgress = 0f;
+    public float moveProgress = 0f;
 
     [SerializeField]
     protected Transform movingObject;
@@ -154,8 +154,6 @@ public abstract class BaseMovable : MonoBehaviour, IPuzzleAffected
         // update helper flags based on state
         isMovingToEnd = newState == MovementState.MovingToEnd;
         isMovingToStart = newState == MovementState.MovingToStart;
-
-        // Debug.Log($"Movement state changed to: {newState}");
     }
 
     public abstract void MoveToEnd();

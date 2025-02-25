@@ -76,6 +76,9 @@ MonoBehaviour:
   interactZone: {fileID: 4122415107202388192}
   meshRenderer: {fileID: 625976379189647443}
   pressedMaterial: {fileID: 2100000, guid: a258b690c845b3847900f0841b7423a1, type: 2}
+  activateSound: {fileID: 8300000, guid: d1e793493535b9949a40da8f8fdf9a03, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d93ab1b7eb9d1fe4da79718b10e5f545, type: 3}
+  soundVolume: 0.5
   disabled: 0
 --- !u!23 &2009452495011681897
 MeshRenderer:

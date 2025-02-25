@@ -35,6 +35,16 @@ public class BasePressurePlate : BaseButton
         }
     }
 
+    protected virtual bool InteractConditions()
+    {
+        return numStandingBefore == 0;
+    }
+
+    protected virtual bool EndInteractConditions()
+    {
+        return standingOnPlate.Count == 0;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other == null)
@@ -50,7 +60,10 @@ public class BasePressurePlate : BaseButton
             standingOnPlate.Add(other);
         }
 
-        StartInteract(other.transform);
+        if (InteractConditions())
+        {
+            StartInteract(other.transform);
+        }
     }
 
     protected virtual void OnTriggerExit(Collider other)
@@ -68,7 +81,7 @@ public class BasePressurePlate : BaseButton
         }
 
         // only deactivate if nothing is left on the plate
-        if (standingOnPlate.Count == 0)
+        if (EndInteractConditions())
         {
             EndInteract();
         }

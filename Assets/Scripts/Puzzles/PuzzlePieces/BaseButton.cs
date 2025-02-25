@@ -14,6 +14,16 @@ public class BaseButton : BasePuzzlePiece, IInteractable
     private Material pressedMaterial;
     private Material defaultMaterial;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip activateSound;
+
+    [SerializeField]
+    private AudioClip deactivateSound;
+
+    [SerializeField]
+    private float soundVolume = 1f;
+
     public bool CanInteract { protected set; get; } = true;
     public float InteractRange { protected set; get; } = InteractDistance.Short;
 
@@ -43,10 +53,8 @@ public class BaseButton : BasePuzzlePiece, IInteractable
         if (!disabled)
         {
             ActivateButton();
-
             return IsActivated;
         }
-
         return false;
     }
 
@@ -65,6 +73,11 @@ public class BaseButton : BasePuzzlePiece, IInteractable
                 meshRenderer.material = pressedMaterial;
             }
             SetActivated(true);
+
+            if (activateSound != null)
+            {
+                AudioManager.Instance.PlaySound(activateSound, transform.position, soundVolume);
+            }
         }
     }
 
@@ -78,6 +91,11 @@ public class BaseButton : BasePuzzlePiece, IInteractable
                 meshRenderer.material = defaultMaterial;
             }
             SetActivated(false);
+
+            if (deactivateSound != null)
+            {
+                AudioManager.Instance.PlaySound(deactivateSound, transform.position, soundVolume);
+            }
         }
     }
 

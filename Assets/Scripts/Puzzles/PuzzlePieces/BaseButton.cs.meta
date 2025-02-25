@@ -3,7 +3,12 @@ guid: df3f5f7dd66e779419a93065301e32f0
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - interactZone: {instanceID: 0}
+  - meshRenderer: {instanceID: 0}
+  - pressedMaterial: {instanceID: 0}
+  - activateSound: {fileID: 8300000, guid: 88dc21854cc5ffe49b34ee1a836ffd57, type: 3}
+  - deactivateSound: {fileID: 8300000, guid: b17c09664a46d114db3d76de3e417b72, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -9,6 +9,8 @@ public abstract class BaseDoor : BaseMovable, IInteractable
     [SerializeField]
     private bool interactable = true;
 
+    private DoorAudioHandler audioHandler;
+
     public bool IsLocked => isLocked;
     public bool IsClosed => IsAtStart;
 
@@ -20,6 +22,7 @@ public abstract class BaseDoor : BaseMovable, IInteractable
     protected virtual void Awake()
     {
         CanInteract = interactable;
+        audioHandler = GetComponent<DoorAudioHandler>();
     }
 
     public virtual void TriggerOpenDoor()

@@ -114,12 +114,13 @@ MonoBehaviour:
   interactibleLayer:
     serializedVersion: 2
     m_Bits: 128
-  onStateChangedEvent: {fileID: 0}
   isActivated: 0
-  standalonePlate: 0
   interactZone: {fileID: 6585904736526507154}
   meshRenderer: {fileID: 2526120115726329638}
   pressedMaterial: {fileID: 2100000, guid: a258b690c845b3847900f0841b7423a1, type: 2}
+  activateSound: {fileID: 8300000, guid: d1e793493535b9949a40da8f8fdf9a03, type: 3}
+  deactivateSound: {fileID: 8300000, guid: d93ab1b7eb9d1fe4da79718b10e5f545, type: 3}
+  soundVolume: 0.5
   disabled: 0
   destroyProjectile: 1
 --- !u!54 &-5935037525042305455
