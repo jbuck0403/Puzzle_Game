@@ -14,15 +14,7 @@ public class BaseButton : BasePuzzlePiece, IInteractable
     private Material pressedMaterial;
     private Material defaultMaterial;
 
-    [Header("Audio")]
-    [SerializeField]
-    private AudioClip activateSound;
-
-    [SerializeField]
-    private AudioClip deactivateSound;
-
-    [SerializeField]
-    private float soundVolume = 1f;
+    protected ButtonAudioHandler audioHandler;
 
     public bool CanInteract { protected set; get; } = true;
     public float InteractRange { protected set; get; } = InteractDistance.Short;
@@ -46,6 +38,8 @@ public class BaseButton : BasePuzzlePiece, IInteractable
         {
             Debug.LogError($"Pressed material not assigned on {gameObject.name}");
         }
+
+        audioHandler = GetComponent<ButtonAudioHandler>();
     }
 
     public virtual bool StartInteract(Transform interactor)
@@ -63,6 +57,16 @@ public class BaseButton : BasePuzzlePiece, IInteractable
         DeactivateButton();
     }
 
+    protected virtual void PlayActivateSound()
+    {
+        audioHandler.PlayActivateSound();
+    }
+
+    protected virtual void PlayDeactivateSound()
+    {
+        audioHandler.PlayDeactivateSound();
+    }
+
     protected virtual void ActivateButton()
     {
         print("ACTIVATING BUTTON");
@@ -73,11 +77,7 @@ public class BaseButton : BasePuzzlePiece, IInteractable
                 meshRenderer.material = pressedMaterial;
             }
             SetActivated(true);
-
-            if (activateSound != null)
-            {
-                AudioManager.Instance.PlaySound(activateSound, transform.position, soundVolume);
-            }
+            PlayActivateSound();
         }
     }
 
@@ -91,11 +91,7 @@ public class BaseButton : BasePuzzlePiece, IInteractable
                 meshRenderer.material = defaultMaterial;
             }
             SetActivated(false);
-
-            if (deactivateSound != null)
-            {
-                AudioManager.Instance.PlaySound(deactivateSound, transform.position, soundVolume);
-            }
+            PlayDeactivateSound();
         }
     }
 

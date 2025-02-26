@@ -18,7 +18,7 @@ public class PlayerInput : MonoBehaviour
     public Transform mainHand;
 
     [SerializeField]
-    private float moveSpeed = 1f;
+    public float moveSpeed = 1f;
 
     [SerializeField]
     private float jumpForce = 5f;
@@ -30,7 +30,9 @@ public class PlayerInput : MonoBehaviour
     private float verticalRotation = 0f;
     private Vector2 lookDirection;
     private float verticalVelocity;
-    private bool jumping = false;
+    public bool jumping = false;
+
+    public float inputSum;
 
     [SerializeField]
     public Transform currentWeapon;
@@ -112,6 +114,7 @@ public class PlayerInput : MonoBehaviour
         // Get input
         float forward = Input.GetAxis("Vertical");
         float right = Input.GetAxis("Horizontal");
+        inputSum = Mathf.Abs(forward) + Mathf.Abs(right); // sum of input axes
 
         // Add player input movement
         movement +=
@@ -142,5 +145,10 @@ public class PlayerInput : MonoBehaviour
         {
             verticalVelocity += Physics.gravity.y * Time.deltaTime;
         }
+    }
+
+    public bool IsMoving(float speed = 0.01f)
+    {
+        return characterController.velocity.magnitude > speed;
     }
 }

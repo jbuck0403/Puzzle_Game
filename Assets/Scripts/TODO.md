@@ -1,8 +1,7 @@
 - SFX
-    - walking sound
     - shooting sound
-    - button activating sound
     - puzzle solved sound
+    - menu sound
 - VFX
     - add the pixelationFX package
 - UI
@@ -16,3 +15,5 @@
 - Post-Processing
     - research post-processing techniques
 
+
+- BUGS

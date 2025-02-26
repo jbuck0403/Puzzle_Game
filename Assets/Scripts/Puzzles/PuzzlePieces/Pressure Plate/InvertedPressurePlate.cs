@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class InvertedPressurePlate : BasePressurePlate
 {
+    private bool firstActivation = true;
+
     protected override void Start()
     {
         base.Start();
-        base.ActivateButton();
+
+        if (standingOnPlate.Count == 0)
+        {
+            base.ActivateButton();
+        }
     }
 
     protected override void ActivateButton()
@@ -18,5 +24,17 @@ public class InvertedPressurePlate : BasePressurePlate
     protected override void DeactivateButton()
     {
         base.ActivateButton();
+    }
+
+    protected override void PlayActivateSound()
+    {
+        if (firstActivation)
+        {
+            firstActivation = false; // ensure pressure plate doesn't play a sound on initial activation
+        }
+        else
+        {
+            base.PlayActivateSound();
+        }
     }
 }

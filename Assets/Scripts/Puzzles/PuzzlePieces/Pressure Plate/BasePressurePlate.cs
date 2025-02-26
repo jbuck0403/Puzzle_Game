@@ -9,13 +9,12 @@ public class BasePressurePlate : BaseButton
     protected override void Start()
     {
         base.Start();
-
         CanInteract = false; // disallow IInteractable behavior
 
         RecheckStandingObjects();
     }
 
-    protected void RecheckStandingObjects()
+    protected void RecheckStandingObjects(bool interact = true)
     {
         // check for objects already inside the trigger
         Collider[] hitColliders = Physics.OverlapBox(
@@ -30,9 +29,36 @@ public class BasePressurePlate : BaseButton
         {
             if (col != null && col.GetComponent<Projectile>() == null)
             {
-                standingOnPlate.Add(col);
+                CheckStandingOnPlate(col);
+
+                if (interact)
+                    StartInteractWithConditions(col.transform);
             }
         }
+    }
+
+    protected void StartInteractWithConditions(Transform transform)
+    {
+        // check if this addition should trigger the pressure plate
+        if (InteractConditions())
+        {
+            StartInteract(transform);
+        }
+    }
+
+    protected void EndInteractWithConditions()
+    {
+        // check if this addition should trigger the pressure plate
+        if (EndInteractConditions())
+        {
+            EndInteract();
+        }
+    }
+
+    private void CheckStandingOnPlate(Collider col)
+    {
+        numStandingBefore = standingOnPlate.Count;
+        standingOnPlate.Add(col);
     }
 
     protected virtual bool InteractConditions()
@@ -56,14 +82,9 @@ public class BasePressurePlate : BaseButton
 
         if (other.GetComponent<Projectile>() == null)
         {
-            numStandingBefore = standingOnPlate.Count;
-            standingOnPlate.Add(other);
+            CheckStandingOnPlate(other);
         }
-
-        if (InteractConditions())
-        {
-            StartInteract(other.transform);
-        }
+        StartInteractWithConditions(other.transform);
     }
 
     protected virtual void OnTriggerExit(Collider other)
@@ -80,11 +101,7 @@ public class BasePressurePlate : BaseButton
             standingOnPlate.Remove(other);
         }
 
-        // only deactivate if nothing is left on the plate
-        if (EndInteractConditions())
-        {
-            EndInteract();
-        }
+        EndInteractWithConditions();
     }
 
     public override void ForceDeactivate()
@@ -93,7 +110,7 @@ public class BasePressurePlate : BaseButton
         base.ForceDeactivate();
 
         // Recheck for objects still physically on the plate
-        RecheckStandingObjects();
+        RecheckStandingObjects(false);
 
         // If objects are still present, handle according to the pressure plate type
         if (standingOnPlate.Count > 0)
@@ -107,10 +124,4 @@ public class BasePressurePlate : BaseButton
         // Base implementation does nothing
         // Derived classes can override this to handle objects still being present after force deactivate
     }
-
-    // protected override void OnDisable()
-    // {
-    //     standingOnPlate.Clear();
-    //     base.OnDisable();
-    // }
 }
