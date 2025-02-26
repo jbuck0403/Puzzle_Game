@@ -1,32 +1,18 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class DoorAudioHandler : MonoBehaviour
+public class DoorAudioHandler : BaseAudioHandler
 {
-    [Header("Audio")]
-    [SerializeField]
-    private AudioClip doorOpenSound;
+    private AudioClip DoorOpenSound => activateSound;
+    private AudioClip DoorCloseSound => deactivateSound;
 
-    [SerializeField]
-    private AudioClip doorCloseSound;
-
-    [SerializeField]
-    private float soundVolume = 1f;
-
-    private AudioSource audioSource;
     private float soundDuration;
     private BaseDoor door;
     private BaseMovable.MovementState lastMovementState;
 
-    private void Awake()
+    protected override void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        if (audioSource != null)
-        {
-            audioSource.playOnAwake = false;
-            audioSource.spatialBlend = 1f; // Full 3D sound
-            audioSource.volume = soundVolume;
-        }
+        base.Awake();
 
         door = GetComponent<BaseDoor>();
         if (door == null)
@@ -46,11 +32,11 @@ public class DoorAudioHandler : MonoBehaviour
             // If we're starting to move in either direction
             if (door.currentState == BaseMovable.MovementState.MovingToEnd)
             {
-                PlaySound(doorOpenSound);
+                PlaySound(DoorOpenSound);
             }
             else if (door.currentState == BaseMovable.MovementState.MovingToStart)
             {
-                PlaySound(doorCloseSound);
+                PlaySound(DoorCloseSound);
             }
 
             lastMovementState = door.currentState;

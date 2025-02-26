@@ -11,7 +11,9 @@ public abstract class TextButton : MonoBehaviour, IPointerEnterHandler, IPointer
     private Color originalColor;
     private Button button;
 
-    private void Awake()
+    private UIButtonAudioHandler audioHandler;
+
+    protected virtual void Awake()
     {
         button = gameObject.GetComponent<Button>();
         if (button == null)
@@ -22,17 +24,33 @@ public abstract class TextButton : MonoBehaviour, IPointerEnterHandler, IPointer
         tmpText = GetComponent<TMP_Text>();
         originalColor = tmpText.color;
 
-        button.onClick.AddListener(OnButtonPress);
+        button.onClick.AddListener(HandleButtonPress);
+
+        audioHandler = GetComponent<UIButtonAudioHandler>();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (audioHandler != null)
+        {
+            print("hover sound");
+            audioHandler.PlayHoverSound();
+        }
         tmpText.color = hoverColor;
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         tmpText.color = originalColor;
+    }
+
+    private void HandleButtonPress()
+    {
+        if (audioHandler != null)
+        {
+            audioHandler.PlayClickSound();
+        }
+        OnButtonPress();
     }
 
     protected abstract void OnButtonPress();

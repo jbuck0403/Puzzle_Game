@@ -189,9 +189,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 537807e4c5d7df9428422051a6813e2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorOpenSound: {fileID: 8300000, guid: 18379d5fe2987c5498102598a706d74f, type: 3}
-  doorCloseSound: {fileID: 8300000, guid: ceb7f06a0770b334aa163fc66158dba1, type: 3}
+  activateSound: {fileID: 8300000, guid: 18379d5fe2987c5498102598a706d74f, type: 3}
+  deactivateSound: {fileID: 8300000, guid: ceb7f06a0770b334aa163fc66158dba1, type: 3}
   soundVolume: 0.5
+  minDistance: 1
+  maxDistance: 15
 --- !u!1 &3685147401099113208
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,7 +36,7 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField]
     public Transform currentWeapon;
-    public bool isHolding = true;
+    public bool isHolding = false;
 
     void Awake()
     {
@@ -101,6 +101,12 @@ public class PlayerInput : MonoBehaviour
 
     void HandleMovement()
     {
+        if (playerCamera == null)
+        {
+            Debug.LogError("Player camera reference is missing!");
+            return;
+        }
+
         Vector3 movement = Vector3.zero;
 
         // Get camera's forward and right directions and flatten them
@@ -114,6 +120,7 @@ public class PlayerInput : MonoBehaviour
         // Get input
         float forward = Input.GetAxis("Vertical");
         float right = Input.GetAxis("Horizontal");
+
         inputSum = Mathf.Abs(forward) + Mathf.Abs(right); // sum of input axes
 
         // Add player input movement

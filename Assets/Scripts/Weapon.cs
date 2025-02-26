@@ -12,12 +12,16 @@ public class Weapon : Pickupable
     private float bulletSpeed = 50f;
     BulletPool bulletPool;
 
+    ProjectileAudioHandler audioHandler;
+
     protected override void Start()
     {
         base.Start();
 
         GameObject bulletPoolObj = GameObject.FindGameObjectWithTag("BulletPool");
         bulletPool = bulletPoolObj.GetComponent<BulletPool>();
+
+        audioHandler = GetComponent<ProjectileAudioHandler>();
     }
 
     protected override void Update()
@@ -26,7 +30,7 @@ public class Weapon : Pickupable
 
         if (Input.GetMouseButtonDown(0) && isCollected)
         {
-            print("firing");
+            PlayWeaponSound();
             ShootBullet();
         }
     }
@@ -47,5 +51,10 @@ public class Weapon : Pickupable
 
             rb.AddForce(bulletForce);
         }
+    }
+
+    protected void PlayWeaponSound()
+    {
+        audioHandler.PlayActivateSound();
     }
 }

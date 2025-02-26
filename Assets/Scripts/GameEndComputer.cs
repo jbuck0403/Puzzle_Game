@@ -24,7 +24,7 @@ public class GameEndComputer : MonoBehaviour, IInteractable
     private float textFadeInDuration = 1f;
 
     public bool CanInteract { get; private set; } = true;
-    public float InteractRange => InteractDistance.Short;
+    public float InteractRange => InteractDistance.VeryShort;
 
     private void Start()
     {
@@ -84,7 +84,6 @@ public class GameEndComputer : MonoBehaviour, IInteractable
 
     private IEnumerator EndGameSequence()
     {
-        print("ENDING GAME");
         // Disable player movement and input
         PlayerInput playerInput = FindObjectOfType<PlayerInput>();
         if (playerInput != null)
