@@ -8,6 +8,9 @@ public class PauseManager : MonoBehaviour
 
     [SerializeField]
     private KeyCode pauseKey = KeyCode.Escape;
+
+    [SerializeField]
+    private PlayerInput playerInput;
     private bool isPaused = false;
 
     void Update()
@@ -23,6 +26,8 @@ public class PauseManager : MonoBehaviour
         isPaused = !isPaused;
         pauseMenuCanvas.SetActive(isPaused);
         Time.timeScale = isPaused ? 0f : 1f;
+
+        playerInput.SetPaused(isPaused);
     }
 
     public void ResumeGame()
@@ -30,6 +35,8 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         pauseMenuCanvas.SetActive(false);
         Time.timeScale = 1f;
+
+        playerInput.SetPaused(false);
     }
 
     public void QuitToMainMenu()

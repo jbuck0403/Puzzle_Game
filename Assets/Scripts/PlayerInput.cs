@@ -31,12 +31,18 @@ public class PlayerInput : MonoBehaviour
     private Vector2 lookDirection;
     private float verticalVelocity;
     public bool jumping = false;
+    private bool paused = false;
 
     public float inputSum;
 
     [SerializeField]
     public Transform currentWeapon;
     public bool isHolding = false;
+
+    public void SetPaused(bool isPaused)
+    {
+        paused = isPaused;
+    }
 
     void Awake()
     {
@@ -45,19 +51,25 @@ public class PlayerInput : MonoBehaviour
 
     void Update()
     {
-        // CameraFollowMouse();
-        if (Input.GetMouseButton(1))
+        if (!paused)
         {
-            CameraFollowMouse();
-        }
+            // CameraFollowMouse();
+            if (Input.GetMouseButton(1))
+            {
+                CameraFollowMouse();
+            }
 
-        TriggerJump();
+            TriggerJump();
+        }
     }
 
     void FixedUpdate()
     {
-        HandleMovement();
-        HandleJump();
+        if (!paused)
+        {
+            HandleMovement();
+            HandleJump();
+        }
     }
 
     void TriggerJump()
