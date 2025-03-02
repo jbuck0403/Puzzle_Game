@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    private float volumeModifier = 1f;
     private static AudioManager instance;
     public static AudioManager Instance
     {
@@ -38,7 +39,7 @@ public class AudioManager : MonoBehaviour
     {
         if (clip != null)
         {
-            AudioSource.PlayClipAtPoint(clip, position, volume);
+            AudioSource.PlayClipAtPoint(clip, position, volume * volumeModifier);
         }
     }
 
@@ -46,7 +47,11 @@ public class AudioManager : MonoBehaviour
     {
         if (clip != null)
         {
-            AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, volume);
+            AudioSource.PlayClipAtPoint(
+                clip,
+                Camera.main.transform.position,
+                volume * volumeModifier
+            );
         }
     }
 }

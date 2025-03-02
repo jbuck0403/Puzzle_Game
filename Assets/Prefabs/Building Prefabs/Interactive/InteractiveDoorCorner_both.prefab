@@ -70,9 +70,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 486573250611368143, guid: 2a928a74f9e9bf54a9fef610b7325d69, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.0179806
+      objectReference: {fileID: 0}
+    - target: {fileID: 486573250611368143, guid: 2a928a74f9e9bf54a9fef610b7325d69, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.97001
+      objectReference: {fileID: 0}
+    - target: {fileID: 486573250611368143, guid: 2a928a74f9e9bf54a9fef610b7325d69, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.0000029504295
+      objectReference: {fileID: 0}
+    - target: {fileID: 486573250611368143, guid: 2a928a74f9e9bf54a9fef610b7325d69, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 486573250611368143, guid: 2a928a74f9e9bf54a9fef610b7325d69, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -180
+      objectReference: {fileID: 0}
     - target: {fileID: 724618159367306183, guid: 2a928a74f9e9bf54a9fef610b7325d69, type: 3}
       propertyPath: m_Name
-      value: InteractiveDoorCorner Variant
+      value: InteractiveDoorCorner_both
       objectReference: {fileID: 0}
     - target: {fileID: 2267286587875265147, guid: 2a928a74f9e9bf54a9fef610b7325d69, type: 3}
       propertyPath: m_LocalPosition.x

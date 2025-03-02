@@ -6,12 +6,19 @@ public class PauseManager : MonoBehaviour
     [SerializeField]
     private GameObject pauseMenuCanvas;
 
+    private MenuManager menuManager;
+
     [SerializeField]
     private KeyCode pauseKey = KeyCode.Escape;
 
     [SerializeField]
     private PlayerInput playerInput;
     private bool isPaused = false;
+
+    void Awake()
+    {
+        menuManager = GetComponent<MenuManager>();
+    }
 
     void Update()
     {
@@ -25,6 +32,7 @@ public class PauseManager : MonoBehaviour
     {
         isPaused = !isPaused;
         pauseMenuCanvas.SetActive(isPaused);
+        menuManager.ShowEscapeMenu();
         Time.timeScale = isPaused ? 0f : 1f;
 
         playerInput.SetPaused(isPaused);

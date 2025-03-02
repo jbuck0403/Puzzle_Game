@@ -89,26 +89,10 @@ public class PlayerInput : MonoBehaviour
         verticalRotation -= lookDirection.y;
         verticalRotation = Mathf.Clamp(verticalRotation, -maxVerticalAngle, maxVerticalAngle);
 
-        float currentHeadYaw = head.localEulerAngles.y;
-        if (currentHeadYaw > 180)
-            currentHeadYaw -= 360;
+        // always rotate the body for horizontal movement
+        body.transform.Rotate(Vector3.up * lookDirection.x);
 
-        if (
-            (currentHeadYaw >= 80 && lookDirection.x > 0)
-            || (currentHeadYaw <= -80 && lookDirection.x < 0)
-        )
-        {
-            body.transform.Rotate(Vector3.up * lookDirection.x);
-            head.transform.localEulerAngles = new Vector3(verticalRotation, currentHeadYaw, 0);
-        }
-        else
-        {
-            head.transform.localEulerAngles = new Vector3(
-                verticalRotation,
-                head.localEulerAngles.y + lookDirection.x,
-                0
-            );
-        }
+        head.localEulerAngles = new Vector3(verticalRotation, 0f, 0f);
     }
 
     void HandleMovement()
