@@ -7,7 +7,7 @@ public class VolumeSlider : BaseSlider
     private AudioMixer audioMixer;
 
     [SerializeField]
-    private string volumeParameter = "Master"; // "Master", "SFX", or "Music"
+    private string volumeParameter = "Volume";
 
     protected override void OnSliderValueChanged(float value)
     {

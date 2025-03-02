@@ -24704,7 +24704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: bf1b7494766f6d44c816c098dc74744a, type: 2}
-  volumeParameter: Master
+  volumeParameter: Volume
 --- !u!114 &1865130994
 MonoBehaviour:
   m_ObjectHideFlags: 0

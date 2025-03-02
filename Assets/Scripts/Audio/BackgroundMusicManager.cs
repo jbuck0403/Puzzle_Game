@@ -63,6 +63,11 @@ public class BackgroundMusicManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        PlayGameplayMusic();
+    }
+
     private void InitializeAudioSources()
     {
         // Create audio sources if not assigned in inspector
