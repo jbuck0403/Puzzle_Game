@@ -41,6 +41,11 @@ public abstract class TextButton : MonoBehaviour, IPointerEnterHandler, IPointer
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        ResetHoverState();
+    }
+
+    public void ResetHoverState()
+    {
         tmpText.color = originalColor;
     }
 
@@ -50,6 +55,7 @@ public abstract class TextButton : MonoBehaviour, IPointerEnterHandler, IPointer
         {
             audioHandler.PlayClickSound();
         }
+        ResetHoverState();
         OnButtonPress();
     }
 

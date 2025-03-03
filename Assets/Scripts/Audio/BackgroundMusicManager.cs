@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BackgroundMusicManager : MonoBehaviour
 {
@@ -65,12 +66,13 @@ public class BackgroundMusicManager : MonoBehaviour
 
     private void Start()
     {
-        PlayGameplayMusic();
+        string currentScene = SceneManager.GetActiveScene().name;
+        PlayLevelMusic(currentScene);
     }
 
     private void InitializeAudioSources()
     {
-        // Create audio sources if not assigned in inspector
+        // ciireate audio sources if not assigned in inspector
         if (musicSource == null)
         {
             musicSource = gameObject.AddComponent<AudioSource>();
@@ -87,6 +89,20 @@ public class BackgroundMusicManager : MonoBehaviour
 
         activeSource = musicSource;
         inactiveSource = musicSource2;
+    }
+
+    public void PlayLevelMusic(string newScene)
+    {
+        print($"### {newScene}");
+        if (newScene == "MainMenu")
+        {
+            print("playing main menu music");
+            PlayMainMenuMusic();
+        }
+        else if (newScene == "Level1")
+        {
+            PlayGameplayMusic();
+        }
     }
 
     public void PlayMainMenuMusic()

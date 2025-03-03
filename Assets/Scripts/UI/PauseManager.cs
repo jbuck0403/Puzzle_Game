@@ -8,6 +8,8 @@ public class PauseManager : MonoBehaviour
 
     private MenuManager menuManager;
 
+    public BackgroundMusicManager bgmm;
+
     [SerializeField]
     private KeyCode pauseKey = KeyCode.Escape;
 
@@ -18,6 +20,11 @@ public class PauseManager : MonoBehaviour
     void Awake()
     {
         menuManager = GetComponent<MenuManager>();
+    }
+
+    void Start()
+    {
+        bgmm = FindFirstObjectByType<BackgroundMusicManager>();
     }
 
     void Update()
@@ -49,9 +56,13 @@ public class PauseManager : MonoBehaviour
 
     public void QuitToMainMenu()
     {
+        // unpause game
         ResumeGame();
 
-        // Load main menu
+        // start playing background music for main menu
+        bgmm.PlayMainMenuMusic();
+
+        // load main menu
         SceneManager.LoadScene(0);
     }
 }

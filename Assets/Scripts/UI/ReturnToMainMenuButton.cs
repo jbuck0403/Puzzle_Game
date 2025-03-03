@@ -8,6 +8,8 @@ public class ReturnToMainMenuButton : TextButton
     protected override void OnButtonPress()
     {
         if (pauseManager != null)
+        {
             pauseManager.QuitToMainMenu();
+        }
     }
 }

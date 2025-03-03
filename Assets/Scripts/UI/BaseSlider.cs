@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public abstract class BaseSlider : MonoBehaviour
 {
     protected Slider slider;
-    private float previousValue;
+    protected float previousValue;
 
     protected virtual void Awake()
     {

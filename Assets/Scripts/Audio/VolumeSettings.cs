@@ -1,22 +1,81 @@
+using System.IO;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Events;
 
 public class VolumeSettings : MonoBehaviour
 {
     public AudioMixer audioMixer;
 
-    public void SetMasterVolume(float volume)
+    public float masterVolume;
+    public float sFXVolume;
+    public float musicVolume;
+    private static string SettingsPath =>
+        Path.Combine(Application.persistentDataPath, "settings.json");
+
+    public UnityEvent<string, float> onVolumeChanged;
+
+    private void Awake()
     {
-        audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+        LoadSettings();
     }
 
-    public void SetSFXVolume(float volume)
+    private void LoadSettings()
     {
-        audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+        if (File.Exists(SettingsPath))
+        {
+            string json = File.ReadAllText(SettingsPath);
+            AudioSettings settings = JsonUtility.FromJson<AudioSettings>(json);
+            ApplySettings(settings);
+        }
     }
 
-    public void SetMusicVolume(float volume)
+    private void SaveSettings()
     {
-        audioMixer.SetFloat("Music", Mathf.Log10(volume) * 20);
+        AudioSettings settings = new AudioSettings
+        {
+            masterVolume = GetCurrentVolume("Master"),
+            sfxVolume = GetCurrentVolume("SFX"),
+            musicVolume = GetCurrentVolume("Music")
+        };
+
+        string json = JsonUtility.ToJson(settings);
+        File.WriteAllText(SettingsPath, json);
     }
+
+    private float GetCurrentVolume(string parameter)
+    {
+        float dbValue;
+        audioMixer.GetFloat(parameter, out dbValue);
+        return Mathf.Pow(10, dbValue / 20f);
+    }
+
+    private void ApplySettings(AudioSettings settings)
+    {
+        masterVolume = settings.masterVolume;
+        SetVolume("Master", masterVolume);
+
+        sFXVolume = settings.sfxVolume;
+        SetVolume("SFX", sFXVolume);
+
+        musicVolume = settings.musicVolume;
+        SetVolume("Music", musicVolume);
+    }
+
+    public void SetVolume(string channel, float volume)
+    {
+        float newVolume = Mathf.Log10(volume) * 20;
+        audioMixer.SetFloat(channel, newVolume);
+
+        onVolumeChanged.Invoke(channel, volume);
+        SaveSettings();
+    }
+}
+
+[System.Serializable]
+public class AudioSettings
+{
+    public float masterVolume = 1f;
+    public float sfxVolume = 1f;
+    public float musicVolume = 1f;
 }
