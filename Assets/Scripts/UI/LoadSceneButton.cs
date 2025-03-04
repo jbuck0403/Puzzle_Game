@@ -8,9 +8,12 @@ public class LoadSceneButton : TextButton
 
     private BackgroundMusicManager bgmm;
 
+    // private VolumeSettings volumeSettings;
+
     private void Start()
     {
-        bgmm = FindFirstObjectByType<BackgroundMusicManager>();
+        bgmm = FindObjectOfType<BackgroundMusicManager>();
+        // volumeSettings = FindObjectOfType<VolumeSettings>();
     }
 
     protected override void OnButtonPress()
@@ -24,6 +27,7 @@ public class LoadSceneButton : TextButton
         {
             bgmm.PlayLevelMusic(sceneToLoad);
         }
+
         SceneManager.LoadScene(sceneToLoad);
     }
 }

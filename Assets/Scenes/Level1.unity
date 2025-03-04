@@ -3019,6 +3019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: bf1b7494766f6d44c816c098dc74744a, type: 2}
   volumeParameter: SFX
+  volumeSettings: {fileID: 0}
 --- !u!114 &318319564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19255,6 +19256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: bf1b7494766f6d44c816c098dc74744a, type: 2}
   volumeParameter: Music
+  volumeSettings: {fileID: 0}
 --- !u!114 &1337173303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24452,7 +24454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: bf1b7494766f6d44c816c098dc74744a, type: 2}
-  volumeParameter: Volume
+  volumeParameter: Master
+  volumeSettings: {fileID: 0}
 --- !u!114 &1865130994
 MonoBehaviour:
   m_ObjectHideFlags: 0

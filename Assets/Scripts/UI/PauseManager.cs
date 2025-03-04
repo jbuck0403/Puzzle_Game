@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
@@ -10,6 +11,8 @@ public class PauseManager : MonoBehaviour
 
     public BackgroundMusicManager bgmm;
 
+    public VolumeSettings volumeSettings;
+
     [SerializeField]
     private KeyCode pauseKey = KeyCode.Escape;
 
@@ -20,11 +23,12 @@ public class PauseManager : MonoBehaviour
     void Awake()
     {
         menuManager = GetComponent<MenuManager>();
+        volumeSettings = FindObjectOfType<VolumeSettings>();
     }
 
     void Start()
     {
-        bgmm = FindFirstObjectByType<BackgroundMusicManager>();
+        bgmm = FindObjectOfType<BackgroundMusicManager>();
     }
 
     void Update()
