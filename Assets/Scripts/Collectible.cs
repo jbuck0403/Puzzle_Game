@@ -18,10 +18,8 @@ public abstract class Collectible : MonoBehaviour, IInteractable
 
     public virtual bool StartInteract(Transform interactor)
     {
-        print("Interacting...");
         if (!isCollected)
         {
-            print("Collecting...");
             if (OnCollect(interactor))
             {
                 isCollected = true;

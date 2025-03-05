@@ -84,12 +84,12 @@ public class VolumeSettings : MonoBehaviour
         }
     }
 
-    private float GetCurrentVolume(string channel)
-    {
-        float dbValue;
-        audioMixer.GetFloat(channel, out dbValue);
-        return Mathf.Pow(10, dbValue / 20f);
-    }
+    // private float GetCurrentVolume(string channel)
+    // {
+    //     float dbValue;
+    //     audioMixer.GetFloat(channel, out dbValue);
+    //     return Mathf.Pow(10, dbValue / 20f);
+    // }
 
     private void ApplySettings(AudioSettings settings)
     {

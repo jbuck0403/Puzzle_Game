@@ -11,6 +11,7 @@ public class Weapon : Pickupable
     [SerializeField]
     private float bulletSpeed = 50f;
     BulletPool bulletPool;
+    PlayerInput playerInput;
 
     ProjectileAudioHandler audioHandler;
 
@@ -20,7 +21,6 @@ public class Weapon : Pickupable
 
         GameObject bulletPoolObj = GameObject.FindGameObjectWithTag("BulletPool");
         bulletPool = bulletPoolObj.GetComponent<BulletPool>();
-
         audioHandler = GetComponent<ProjectileAudioHandler>();
     }
 
@@ -30,7 +30,6 @@ public class Weapon : Pickupable
 
         if (Input.GetMouseButtonDown(0) && isCollected)
         {
-            PlayWeaponSound();
             ShootBullet();
         }
     }
@@ -42,8 +41,9 @@ public class Weapon : Pickupable
 
     void ShootBullet()
     {
-        if (isCollected)
+        if (isCollected && !playerInput.IsPaused)
         {
+            PlayWeaponSound();
             GameObject firedBullet = SpawnBullet();
             Rigidbody rb = firedBullet.GetComponent<Rigidbody>();
 

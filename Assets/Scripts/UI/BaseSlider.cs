@@ -14,16 +14,13 @@ public abstract class BaseSlider : MonoBehaviour
             slider = gameObject.AddComponent<Slider>();
         }
 
-        // Store initial value
         previousValue = slider.value;
-
-        // Add listener for value changes
         slider.onValueChanged.AddListener(HandleValueChanged);
     }
 
     private void HandleValueChanged(float value)
     {
-        // Only trigger if value actually changed
+        // only trigger if value actually changed
         if (value != previousValue)
         {
             OnSliderValueChanged(value);

@@ -28,7 +28,7 @@ public class BackgroundMusicManager : MonoBehaviour
     private AudioSource musicSource;
 
     [SerializeField]
-    private AudioSource musicSource2; // For crossfading
+    private AudioSource musicSource2; // for crossfading
 
     [Header("Settings")]
     [SerializeField]
@@ -72,7 +72,7 @@ public class BackgroundMusicManager : MonoBehaviour
 
     private void InitializeAudioSources()
     {
-        // ciireate audio sources if not assigned in inspector
+        // create audio sources if not assigned in inspector
         if (musicSource == null)
         {
             musicSource = gameObject.AddComponent<AudioSource>();
@@ -117,7 +117,7 @@ public class BackgroundMusicManager : MonoBehaviour
 
     public void PlayMusic(AudioClip newClip)
     {
-        // Don't restart if the same clip is already playing
+        // don't restart if the same clip is already playing
         if (activeSource.clip == newClip && activeSource.isPlaying)
             return;
 
@@ -129,12 +129,12 @@ public class BackgroundMusicManager : MonoBehaviour
 
     private IEnumerator CrossfadeMusic(AudioClip newClip)
     {
-        // Swap active and inactive sources
+        // swap active and inactive sources
         var temp = activeSource;
         activeSource = inactiveSource;
         inactiveSource = temp;
 
-        // Setup new clip
+        // setup new clip
         activeSource.clip = newClip;
         activeSource.volume = 0;
         activeSource.Play();
@@ -145,17 +145,17 @@ public class BackgroundMusicManager : MonoBehaviour
             timer += Time.deltaTime;
             float t = timer / fadeDuration;
 
-            // Fade out old music
+            // fade out old music
             if (inactiveSource.isPlaying)
                 inactiveSource.volume = Mathf.Lerp(defaultVolume, 0, t);
 
-            // Fade in new music
+            // fade in new music
             activeSource.volume = Mathf.Lerp(0, defaultVolume, t);
 
             yield return null;
         }
 
-        // Ensure clean ending
+        // ensure clean ending
         inactiveSource.Stop();
         inactiveSource.clip = null;
         activeSource.volume = defaultVolume;

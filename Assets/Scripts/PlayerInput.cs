@@ -32,6 +32,7 @@ public class PlayerInput : MonoBehaviour
     private float verticalVelocity;
     public bool jumping = false;
     private bool paused = false;
+    public bool IsPaused => paused;
 
     public float inputSum;
 

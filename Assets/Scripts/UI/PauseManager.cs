@@ -18,7 +18,7 @@ public class PauseManager : MonoBehaviour
 
     [SerializeField]
     private PlayerInput playerInput;
-    private bool isPaused = false;
+    public bool isPaused = false;
 
     void Awake()
     {

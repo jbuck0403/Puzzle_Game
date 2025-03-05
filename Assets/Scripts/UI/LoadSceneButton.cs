@@ -8,12 +8,9 @@ public class LoadSceneButton : TextButton
 
     private BackgroundMusicManager bgmm;
 
-    // private VolumeSettings volumeSettings;
-
     private void Start()
     {
         bgmm = FindObjectOfType<BackgroundMusicManager>();
-        // volumeSettings = FindObjectOfType<VolumeSettings>();
     }
 
     protected override void OnButtonPress()

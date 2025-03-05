@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -13,6 +14,9 @@ public class Pickupable : Collectible
     [SerializeField]
     private float pickupRange = InteractDistance.Short;
 
+    [SerializeField]
+    private TMP_Text uiElement;
+
     private Rigidbody rb;
     private Collider col;
     private Transform mainHand;
@@ -26,6 +30,8 @@ public class Pickupable : Collectible
 
         Debug.Log($"Pickupable {gameObject.name} initialized with range {pickupRange}");
         Debug.Log($"Layer: {gameObject.layer}, Collider enabled: {col.enabled}");
+
+        uiElement = GameObject.FindWithTag("DropControlText").GetComponent<TMP_Text>();
     }
 
     protected virtual void Update()
@@ -71,6 +77,9 @@ public class Pickupable : Collectible
         transform.localPosition = holdOffset;
         transform.localRotation = Quaternion.Euler(holdRotation);
 
+        // show control text
+        uiElement.enabled = true;
+
         return true;
     }
 
@@ -105,6 +114,9 @@ public class Pickupable : Collectible
         // reset collectible state to allow pickup again
         SetCollected(false);
         CanInteract = true;
+
+        // hide control text
+        uiElement.enabled = false;
     }
 
     private void OnValidate()

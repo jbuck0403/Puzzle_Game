@@ -372,6 +372,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Entrance_1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4707772888611424758, guid: 9ed2dae69f6c32e49b711df0c1ea510e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5340863246311510860, guid: 9ed2dae69f6c32e49b711df0c1ea510e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.017990112
