@@ -103,4 +103,24 @@ Assets/Projectile Animations.meta
 # MD
 **/*.md
 
+# Project Specific Asset Files
+# KUBIKOS package files
+Assets/KUBIKOS-Sci-fi Cube World/**/*.png
+Assets/KUBIKOS-Sci-fi Cube World/**/*.jpg
+Assets/KUBIKOS-Sci-fi Cube World/**/*.jpeg
+Assets/KUBIKOS-Sci-fi Cube World/**/*.tif
+Assets/KUBIKOS-Sci-fi Cube World/**/*.tga
+Assets/KUBIKOS-Sci-fi Cube World/**/*.psd
+Assets/KUBIKOS-Sci-fi Cube World/**/*.fbx
+Assets/KUBIKOS-Sci-fi Cube World/**/*.obj
+Assets/KUBIKOS-Sci-fi Cube World/**/*.prefab
+Assets/KUBIKOS-Sci-fi Cube World/**/*.mat
+Assets/KUBIKOS-Sci-fi Cube World/**/*.controller
+Assets/KUBIKOS-Sci-fi Cube World/**/*.anim
+
+# Exclude all large texture files
+**/*.png filter=lfs diff=lfs merge=lfs -text size=+10m
+**/*.jpg filter=lfs diff=lfs merge=lfs -text size=+10m
+**/*.tga filter=lfs diff=lfs merge=lfs -text size=+10m
+
 
