@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class QuitGameButton : TextButton
 {
     protected override void OnButtonPress()

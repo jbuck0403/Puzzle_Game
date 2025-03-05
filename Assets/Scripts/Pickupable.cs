@@ -13,8 +13,6 @@ public class Pickupable : Collectible
 
     [SerializeField]
     private float pickupRange = InteractDistance.Short;
-
-    [SerializeField]
     private TMP_Text uiElement;
 
     private Rigidbody rb;
@@ -22,6 +20,16 @@ public class Pickupable : Collectible
     private Transform mainHand;
 
     public override float InteractRange => pickupRange;
+
+    private void SyncUIElement()
+    {
+        GameObject obj = GameObject.FindWithTag("DropControlText");
+
+        if (obj != null)
+        {
+            uiElement = obj.GetComponent<TMP_Text>();
+        }
+    }
 
     protected virtual void Start()
     {
@@ -31,11 +39,15 @@ public class Pickupable : Collectible
         Debug.Log($"Pickupable {gameObject.name} initialized with range {pickupRange}");
         Debug.Log($"Layer: {gameObject.layer}, Collider enabled: {col.enabled}");
 
-        uiElement = GameObject.FindWithTag("DropControlText").GetComponent<TMP_Text>();
+        SyncUIElement();
     }
 
     protected virtual void Update()
     {
+        if (uiElement == null)
+        {
+            SyncUIElement();
+        }
         TriggerDrop();
     }
 

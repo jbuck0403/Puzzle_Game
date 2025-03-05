@@ -31,7 +31,10 @@ public class PlayerInput : MonoBehaviour
     private Vector2 lookDirection;
     private float verticalVelocity;
     public bool jumping = false;
+
+    [SerializeField]
     private bool paused = false;
+
     public bool IsPaused => paused;
 
     public float inputSum;

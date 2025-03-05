@@ -22,6 +22,8 @@ public class Weapon : Pickupable
         GameObject bulletPoolObj = GameObject.FindGameObjectWithTag("BulletPool");
         bulletPool = bulletPoolObj.GetComponent<BulletPool>();
         audioHandler = GetComponent<ProjectileAudioHandler>();
+
+        playerInput = GameObject.FindWithTag("Player").GetComponent<PlayerInput>();
     }
 
     protected override void Update()
@@ -41,7 +43,7 @@ public class Weapon : Pickupable
 
     void ShootBullet()
     {
-        if (isCollected && !playerInput.IsPaused)
+        if (isCollected && playerInput != null && !playerInput.IsPaused)
         {
             PlayWeaponSound();
             GameObject firedBullet = SpawnBullet();

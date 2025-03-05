@@ -1,4 +1,3 @@
-using UnityEditor.MPE;
 using UnityEngine;
 
 public abstract class BaseDoor : BaseMovable, IInteractable
@@ -8,8 +7,6 @@ public abstract class BaseDoor : BaseMovable, IInteractable
 
     [SerializeField]
     private bool interactable = true;
-
-    private DoorAudioHandler audioHandler;
 
     public bool IsLocked => isLocked;
     public bool IsClosed => IsAtStart;
@@ -22,7 +19,7 @@ public abstract class BaseDoor : BaseMovable, IInteractable
     protected virtual void Awake()
     {
         CanInteract = interactable;
-        audioHandler = GetComponent<DoorAudioHandler>();
+        // audioHandler = GetComponent<DoorAudioHandler>();
     }
 
     public virtual void TriggerOpenDoor()
@@ -109,7 +106,7 @@ public abstract class BaseDoor : BaseMovable, IInteractable
 
     public abstract void CloseDoor();
 
-    // Implement BaseMovable abstract methods
+    // implement BaseMovable abstract methods
     public override void MoveToEnd()
     {
         OpenDoor();
