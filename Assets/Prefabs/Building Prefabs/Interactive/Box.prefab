@@ -148,5 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holdOffset: {x: 0, y: 0, z: 0}
   holdRotation: {x: 0, y: 0, z: 0}
-  pickupRange: 5
-  uiElement: {fileID: 2768920768635965018, guid: e50f105c1fc844341bdb3b523cb9b617, type: 3}
+  pickupRange: 2

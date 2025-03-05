@@ -26,7 +26,7 @@ public class PlayerInput : MonoBehaviour
 
     [SerializeField]
     private float mouseSensitivity = 1;
-    private float maxVerticalAngle = 40f;
+    private float maxVerticalAngle = 75f;
     private float verticalRotation = 0f;
     private Vector2 lookDirection;
     private float verticalVelocity;

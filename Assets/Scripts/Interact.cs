@@ -30,13 +30,6 @@ public class Interact : MonoBehaviour
 
         Debug.DrawRay(interactRay.origin, interactRay.direction * 100f, Color.yellow);
 
-        // Debug the layer mask
-        if (Input.GetKeyDown(KeyCode.L)) // Add temporary debug key
-        {
-            Debug.Log($"Interactable Layer Mask: {interactableLayerMask.value}");
-            Debug.Log($"Looking for layers: {LayerMaskToString(interactableLayerMask)}");
-        }
-
         if (
             Physics.SphereCast(
                 interactRay,
@@ -58,16 +51,14 @@ public class Interact : MonoBehaviour
                 }
             }
 
+            print("###" + hitInfo.distance);
             bool isWithinRange = hitInfo.distance <= interactable.InteractRange;
+            print("### iswithinrange: " + isWithinRange);
             if (interactable.CanInteract)
             {
-                // Only raise event if this is a new interactable or range status changed
-                if (currentInteractable != interactable)
-                {
-                    HandleNewInteractable(interactable, isWithinRange);
-                }
+                HandleNewInteractable(interactable, isWithinRange);
 
-                // Handle interaction input
+                // handle interaction input
                 if (isWithinRange)
                 {
                     if (Input.GetKeyDown(KeyCode.E))
@@ -101,6 +92,7 @@ public class Interact : MonoBehaviour
                 interactable.PromptText,
                 isWithinRange
             );
+
             interactionEvents.RaiseInteractableHovered(data);
         }
     }

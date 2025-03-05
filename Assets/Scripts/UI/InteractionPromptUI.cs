@@ -12,7 +12,7 @@ public class InteractionPromptUI : MonoBehaviour
     private void Start()
     {
         promptText = GetComponent<TMP_Text>();
-        promptText.enabled = false; // Start with prompt hidden
+        promptText.enabled = false; // start with prompt hidden
 
         if (interactionEvents != null)
         {
@@ -28,18 +28,18 @@ public class InteractionPromptUI : MonoBehaviour
         }
         else
         {
-            DisablePrompt(data);
+            DisablePrompt();
         }
     }
 
-    private void DisablePrompt(InteractionEvents.InteractionEventData data)
+    private void DisablePrompt()
     {
         promptText.enabled = false;
     }
 
     private void EnablePrompt(InteractionEvents.InteractionEventData data)
     {
-        promptText.text = data.Interactable.PromptText; // Interface provides default
+        promptText.text = data.Interactable.PromptText; // interface provides default
         promptText.enabled = true;
     }
 

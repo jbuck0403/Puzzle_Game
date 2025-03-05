@@ -4,7 +4,7 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "InteractionEvents", menuName = "Events/InteractionEvents")]
 public class InteractionEvents : BaseEvent
 {
-    // Event data class to hold information about the interaction
+    // event data class to hold information about the interaction
     public class InteractionEventData
     {
         public IInteractable Interactable { get; private set; }
