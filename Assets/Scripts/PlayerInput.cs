@@ -43,6 +43,8 @@ public class PlayerInput : MonoBehaviour
     public Transform currentWeapon;
     public bool isHolding = false;
 
+    public bool isGrounded = true;
+
     public void SetPaused(bool isPaused)
     {
         paused = isPaused;
@@ -136,7 +138,7 @@ public class PlayerInput : MonoBehaviour
 
     void HandleJump()
     {
-        bool isGrounded = characterController.isGrounded;
+        isGrounded = characterController.isGrounded;
 
         if (jumping && isGrounded)
         {

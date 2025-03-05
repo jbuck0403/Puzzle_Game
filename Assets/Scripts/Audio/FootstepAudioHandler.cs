@@ -60,7 +60,7 @@ public class FootstepAudioHandler : BaseAudioHandler
 
         // check if player is moving on the ground
         if (
-            !playerInput.jumping
+            playerInput.isGrounded
             && playerInput.inputSum > movementTolerance
             && timeSinceLastStep >= minTimeBetweenSteps
         )
