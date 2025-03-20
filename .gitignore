@@ -10,7 +10,7 @@
 # MemoryCaptures can get excessive in size
 [Mm]emoryCaptures/
 
-# Asset meta data should only be ignored when the corresponding asset is also ignored
+# Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
 
 # Visual Studio / VS Code generated files
@@ -64,63 +64,15 @@ Thumbs.db
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# Specific Asset folders
-Assets/Sprites/
-Assets/Sprites.meta
-Assets/Projectile Animations/
-Assets/Projectile Animations.meta
-
-# Additional Large Media Files
+# Source files - these are large and not needed for the game to run
+# They are useful for editing but not necessary for the Unity project
 *.psd
 *.ai
-*.tif
-*.tiff
-*.mp3
-*.wav
-*.ogg
-*.mp4
-*.mov
-*.avi
-
-# Additional Asset Files
-*.cubemap
-*.tga
-*.exr
-*.hdr
-*.fbx
-*.obj
 *.max
-*.blend
-*.dae
-*.mb
-*.ma
-*.3ds
 *.c4d
 
 # Cursor specific
 *.cursorrules
 
-# MD
+# MD files (documentation)
 **/*.md
-
-# Project Specific Asset Files
-# KUBIKOS package files
-Assets/KUBIKOS-Sci-fi Cube World/**/*.png
-Assets/KUBIKOS-Sci-fi Cube World/**/*.jpg
-Assets/KUBIKOS-Sci-fi Cube World/**/*.jpeg
-Assets/KUBIKOS-Sci-fi Cube World/**/*.tif
-Assets/KUBIKOS-Sci-fi Cube World/**/*.tga
-Assets/KUBIKOS-Sci-fi Cube World/**/*.psd
-Assets/KUBIKOS-Sci-fi Cube World/**/*.fbx
-Assets/KUBIKOS-Sci-fi Cube World/**/*.obj
-Assets/KUBIKOS-Sci-fi Cube World/**/*.prefab
-Assets/KUBIKOS-Sci-fi Cube World/**/*.mat
-Assets/KUBIKOS-Sci-fi Cube World/**/*.controller
-Assets/KUBIKOS-Sci-fi Cube World/**/*.anim
-
-# Exclude all large texture files
-**/*.png filter=lfs diff=lfs merge=lfs -text size=+10m
-**/*.jpg filter=lfs diff=lfs merge=lfs -text size=+10m
-**/*.tga filter=lfs diff=lfs merge=lfs -text size=+10m
-
-

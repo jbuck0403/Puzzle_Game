@@ -69,7 +69,7 @@ public class BaseButton : BasePuzzlePiece, IInteractable
 
     protected virtual void ActivateButton()
     {
-        print("ACTIVATING BUTTON");
+        // print("ACTIVATING BUTTON");
         if (!disabled)
         {
             if (meshRenderer != null && pressedMaterial != null)
@@ -83,7 +83,7 @@ public class BaseButton : BasePuzzlePiece, IInteractable
 
     protected virtual void DeactivateButton()
     {
-        print("DEACTIVATING BUTTON");
+        // print("DEACTIVATING BUTTON");
         if (!disabled)
         {
             if (meshRenderer != null && defaultMaterial != null)
